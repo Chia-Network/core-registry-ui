@@ -1,0 +1,16 @@
+.App-header {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  height: 67px;
+  padding-left: 15px;
+}
+
+.app-window {
+  height: calc(100% - 67px);
+  width: 100%;
+}
