@@ -8,9 +8,43 @@
     "react-start": "vite --port 3001",
     "react-start-browser": "vite --port 3001 --open",
     "sync-ui-apps": "rm -rf apps && node sync-apps.js",
-    "build": "npm run sync-ui-apps && vite build && cp -r apps dist/apps",
+    "build": "rm -rf dist && rm -rf build && npm run sync-ui-apps && vite build && cp -r apps build/apps",
     "serve": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "electron:package:mac": "npm run build && electron-builder -m -c.extraMetadata.main=build/electron.js",
+    "electron:package:win": "npm run build && electron-builder -w -c.extraMetadata.main=build/electron.js",
+    "electron:package:linux": "npm run build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+  },
+  "build": {
+    "appId": "org.chia.core-registry-ui",
+    "productName": "CoreRegistryUI",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "target": {
+        "target": "dmg",
+        "arch": [
+          "universal"
+        ]
+      },
+      "publish": null,
+      "icon": "src/assets/img/logo.png"
+    },
+    "win": {
+      "target": "nsis",
+      "publish": null,
+      "icon": "src/assets/img/logo.png"
+    },
+    "linux": {
+      "target": "deb",
+      "publish": null,
+      "icon": "src/assets/img/logo.png"
+    }
   },
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
