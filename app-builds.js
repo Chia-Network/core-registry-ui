@@ -1,7 +1,7 @@
 module.exports = {
   cadt: {
-    tag: "1.2.3",
-    url: "https://github.com/Chia-Network/cadt-ui/releases/download/{{tag}}/cadt-ui-web-build.tar.gz",
+    tag: "1.2.6",
+    url: "https://github.com/Chia-Network/core-registry-cadt-ui/releases/download/{{tag}}/core-registry-cadt-ui-web-build.tar.gz",
   },
   climate_explorer: {
     tag: "1.1.0",
