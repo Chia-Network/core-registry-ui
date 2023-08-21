@@ -73,8 +73,8 @@
     "vite": "^4.4.7",
     "vitest": "^0.33.0"
   },
-  "description": "<h1 align=\"center\">   Vite Template React </h1>",
+  "description": "Core Registry Unified User Interface",
   "main": "src/start.js",
-  "author": "",
-  "license": "ISC"
+  "author": "Chia Network Inc. <hello@chia.net>",
+  "license": "Apache-2.0"
 }
