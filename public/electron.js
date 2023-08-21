@@ -7,9 +7,16 @@ const {
   MenuItem,
   shell,
 } = require('electron');
-//const openAboutWindow = require('about-window').default;
+const openAboutWindow = require('about-window').default;
 const path = require('path');
 const url = require('url');
+const express = require("express");
+
+const serverPort = 3000;
+const appServer = express();
+
+appServer.use(express.static(path.join(app.getAppPath(), "build"))); // Path to your Vite build
+appServer.listen(serverPort);
 
 // Create the native browser window.
 function createWindow() {
@@ -26,11 +33,7 @@ function createWindow() {
   // In production, set the initial browser path to the local bundle generated
   // by the Create React App build process.
   // In development, set it to localhost to allow live/hot-reloading.
-  const appURL = url.format({
-        pathname: path.join(__dirname, 'index.html'),
-        protocol: 'file:',
-        slashes: true,
-      });
+  const appURL = 'http://localhost:3000';
   mainWindow.loadURL(appURL);
 
   mainWindow.webContents.on('did-fail-load', () => {
@@ -48,7 +51,7 @@ function createWindow() {
     newMenu.append(mainMenuItem);
   });
 
-  /*
+  
   newMenu.append(
     new MenuItem({
       label: 'About',
@@ -64,7 +67,7 @@ function createWindow() {
         },
       ],
     }),
-  );*/
+  );
 
   Menu.setApplicationMenu(newMenu);
 
