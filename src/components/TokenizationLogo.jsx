@@ -20,7 +20,7 @@ const TokenizationLogo = withTheme(({ width = 50, height = 50 }) => {
   return (
     <LogoContainer>
       <img src={appLogo} width={height} height={width} />
-      Carbon Tokenization Engine
+      Climate Tokenization Engine
     </LogoContainer>
   );
 });
