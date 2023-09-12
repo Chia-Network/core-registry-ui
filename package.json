@@ -65,7 +65,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@vitejs/plugin-react": "^4.0.3",
-    "electron": "^25.3.2",
+    "electron": "^25.5.0",
     "electron-builder": "^24.6.3",
     "foreman": "^3.0.1",
     "fs-extra": "^11.1.1",
