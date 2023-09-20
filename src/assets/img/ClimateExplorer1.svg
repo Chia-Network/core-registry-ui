@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 541.25 105.46">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-family: NeueHaasUnicaW1G-Regular, 'Neue Haas Unica W1G';
+        font-size: 52.87px;
+      }
+
+      .cls-2 {
+        fill: #01a540;
+      }
+
+      .cls-3 {
+        fill: #02322f;
+      }
+
+      .cls-4 {
+        fill: #014637;
+      }
+
+      .cls-5 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-6 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+
+      .cls-8 {
+        fill: #023727;
+      }
+
+      .cls-8, .cls-9 {
+        opacity: .8;
+      }
+
+      .cls-9 {
+        fill: #008354;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <rect class="cls-4" x="17.94" width="87.52" height="87.52"/>
+        <polygon class="cls-9" points="87.52 17.94 105.46 0 105.46 87.52 87.52 105.46 87.52 17.94"/>
+        <polygon class="cls-8" points=".05 17.94 17.99 0 17.99 87.52 .05 105.46 .05 17.94"/>
+        <rect class="cls-3" y="17.94" width="87.52" height="87.52"/>
+        <path class="cls-2" d="M62.74,69.73c-3.53,0-6.63,1.82-8.44,4.56l-19.86-9.91c.27-.91,.42-1.87,.42-2.87,0-.21-.02-.42-.03-.62l19.05-10.93c1.85,2.26,4.66,3.71,7.81,3.71,5.57,0,10.09-4.52,10.09-10.09s-4.52-10.09-10.09-10.09-10.09,4.52-10.09,10.09c0,1.24,.23,2.42,.64,3.52l-18.2,10.44c-1.54-3.6-5.11-6.12-9.27-6.12-5.57,0-10.09,4.52-10.09,10.09s4.52,10.09,10.09,10.09c3.4,0,6.4-1.68,8.22-4.26l19.98,9.97c-.21,.8-.33,1.64-.33,2.51,0,5.57,4.52,10.09,10.09,10.09s10.09-4.52,10.09-10.09-4.52-10.09-10.09-10.09Z"/>
+      </g>
+      <text class="cls-1" transform="translate(150.91 71.07)"><tspan x="0" y="0">Clim</tspan><tspan class="cls-7" x="107.85" y="0">a</tspan><tspan class="cls-6" x="135.4" y="0">t</tspan><tspan x="151.47" y="0">e Explo</tspan><tspan class="cls-5" x="323.99" y="0">r</tspan><tspan x="342.12" y="0">er</tspan></text>
+    </g>
+  </g>
+</svg>

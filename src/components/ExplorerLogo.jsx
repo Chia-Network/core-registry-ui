@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/Explorer.svg";
 
 const LogoContainer = styled("div")`
   display: flex;
@@ -19,7 +19,7 @@ const ExplorerLogo = ({ width = 50, height = 50 }) => {
   return (
     <LogoContainer>
       <img src={logo} width={height} height={width} />
-      Climate Explorer
+      Explorer
     </LogoContainer>
   );
 };
