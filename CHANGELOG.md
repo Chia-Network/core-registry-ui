@@ -1,4 +1,20 @@
-## 0.0.4 (2023-08-29)
+## [0.0.9](https://github.com/Chia-Network/core-registry-ui/compare/0.0.7...0.0.9) (2023-09-20)
+
+
+
+## [0.0.7](https://github.com/Chia-Network/core-registry-ui/compare/0.0.6...0.0.7) (2023-09-12)
+
+
+
+## [0.0.6](https://github.com/Chia-Network/core-registry-ui/compare/0.0.5...0.0.6) (2023-09-07)
+
+
+
+## [0.0.5](https://github.com/Chia-Network/core-registry-ui/compare/0.0.4...0.0.5) (2023-09-07)
+
+
+
+## [0.0.4](https://github.com/Chia-Network/core-registry-ui/compare/2861962654170487d5ce9833f315bbd4d890cbed...0.0.4) (2023-08-29)
 
 
 ### Bug Fixes
