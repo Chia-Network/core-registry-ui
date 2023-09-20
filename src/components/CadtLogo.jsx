@@ -2,7 +2,7 @@ import React from "react";
 import { withTheme } from "styled-components";
 import styled from "styled-components";
 
-import appLogo from "../assets/img/tokenization-engine-logo.png";
+import appLogo from "../assets/img/Registry.svg";
 
 const LogoContainer = styled("div")`
   display: flex;
@@ -20,7 +20,7 @@ const CadtLogo = withTheme(({ width = 50, height = 50 }) => {
   return (
     <LogoContainer>
       <img src={appLogo} width={height} height={width} />
-      Climate Action Data Trust
+      Registry
     </LogoContainer>
   );
 });

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 809.57 102.87">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-family: NeueHaasUnicaW1G-Regular, 'Neue Haas Unica W1G';
+        font-size: 52.87px;
+      }
+
+      .cls-2 {
+        fill: #01a540;
+      }
+
+      .cls-3 {
+        fill: #02322f;
+      }
+
+      .cls-4 {
+        fill: #014637;
+      }
+
+      .cls-5 {
+        letter-spacing: 0em;
+      }
+
+      .cls-6 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+
+      .cls-8 {
+        letter-spacing: -.1em;
+      }
+
+      .cls-9 {
+        letter-spacing: 0em;
+      }
+
+      .cls-10 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-11 {
+        fill: #023727;
+      }
+
+      .cls-11, .cls-12 {
+        opacity: .8;
+      }
+
+      .cls-12 {
+        fill: #008354;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <rect class="cls-4" x="17.5" width="85.37" height="85.37"/>
+      <polygon class="cls-12" points="85.37 17.5 102.87 0 102.87 85.37 85.37 102.87 85.37 17.5"/>
+      <polygon class="cls-11" points=".05 17.5 17.55 0 17.55 85.37 .05 102.87 .05 17.5"/>
+      <rect class="cls-3" y="17.5" width="85.37" height="85.37"/>
+      <path class="cls-2" d="M.04,71.96c7.25,0,13.12-5.88,13.12-13.12S7.29,45.71,.04,45.71v26.24Z"/>
+      <circle class="cls-2" cx="42.73" cy="58.84" r="13.12"/>
+      <path class="cls-2" d="M85.41,71.96c-7.25,0-13.12-5.88-13.12-13.12s5.88-13.12,13.12-13.12v26.24Z"/>
+      <text class="cls-1" transform="translate(148.8 66.2)"><tspan x="0" y="0">Car</tspan><tspan class="cls-7" x="83.64" y="0">b</tspan><tspan class="cls-5" x="114.62" y="0">on </tspan><tspan class="cls-8" x="187.11" y="0">T</tspan><tspan x="213.49" y="0">o</tspan><tspan class="cls-6" x="243.36" y="0">k</tspan><tspan x="268.53" y="0">eniz</tspan><tspan class="cls-9" x="365.76" y="0">a</tspan><tspan x="393.3" y="0">tion </tspan><tspan class="cls-10" x="495.6" y="0">E</tspan><tspan x="527.59" y="0">ngine</tspan></text>
+    </g>
+  </g>
+</svg>
