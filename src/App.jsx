@@ -10,7 +10,7 @@ import flowbiteThemeSettings from "./flowbite.theme";
 const appLinks = {
   cadt: {
     link: "/apps/cadt/index.html",
-    name: "CADT",
+    name: "CAD Trust",
     logo: CadtLogo,
   },
   climateExplorer: {
