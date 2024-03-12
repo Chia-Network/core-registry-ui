@@ -1,93 +1,57 @@
-<h1 align="center">
-  Vite Template React
-</h1>
+# Core Registry UI
 
-<p align="center">
-  <a href="https://github.com/SafdarJamal/vite-template-react/releases">
-    <img src="https://img.shields.io/github/v/release/SafdarJamal/vite-template-react" alt="GitHub Release (latest by date)" />
-  </a>
-  <a href="https://github.com/SafdarJamal/vite-template-react/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/SafdarJamal/vite-template-react" alt="License" />
-  </a>
-</p>
+User interface for the [Core Registry API](https://github.com/Chia-Network/core-registry-api).  Combines [Core Registry CADT UI](https://github.com/Chia-Network/core-registry-cadt-ui/), [Climate Tokenization Engine UI](https://github.com/Chia-Network/Climate-Tokenization-Engine-UI), and [Climate Explorer UI](https://github.com/Chia-Network/climate-explorer-ui) into a single interface.  
 
-<p align="center">
-    A <a href="https://vitejs.dev">Vite</a> + <a href="https://react.dev">React</a> starter template.
-</p>
+## Installation
 
-![Vite Template React](https://github.com/SafdarJamal/vite-template-react/assets/48409548/4b1eb99e-01b8-4752-91c0-76930e7948c1)
+The UI application can be hosted as a web application and accessed via the browser, or as a desktop application packaged with Electron.  Currently the application is only packaged for x86 platforms, though building from source is expected to work on ARM.  
 
-## Folder Structure
+### Desktop Applications
 
-No configuration or complicated folder structures, just the files you need to build your app:
+The [releases](https://github.com/Chia-Network/core-registry-ui/releases) page provides desktop applications packaged for Windows, Mac, and Debian-based Linux distributions.  
 
-```
-vite-template-react
-├── node_modules
-├── public
-│   ├── favicon.svg
-│   └── robots.txt
-└── src
-    ├── App.css
-    ├── App.jsx
-    ├── App.test.jsx
-    ├── index.css
-    ├── index.jsx
-    └── logo.svg
-    └── setupTests.js
-├── .gitignore
-├── index.html
-├── package.json
-├── README.md
-├── vite.config.js
-```
+### Web Application
 
-## Development
+The Core Registry UI can be hosted as a web application, either for internal use, or made available to the public.  When operating as a web application, the user's browser must be able to connect to the [Core Registry API](https://github.com/Chia-Network/core-registry-api).  This means the API must be available on the public internet if the UI is public.  Always set an API key to prevent unauthorized access.
 
-To get a local copy of the code, clone it using git:
+To host the UI on the web, use the [web-build.tar.gz file from the releases page](https://github.com/Chia-Network/core-registry-ui/releases). One of the simplest solutions is to uncompress these files into a [public S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html). These files could also be served by any webserver, such as Nginx or Apache.  
+
+#### Prerequisites
+
+You'll need:
+
+- Git
+- [nvm](https://github.com/nvm-sh/nvm)
+
+  This app uses `nvm` to align node versions across development, CI and production. If you're working on Windows you should consider [nvm-windows](https://github.com/coreybutler/nvm-windows)
+
+## Contributing
+
+Upon your first commit, you will automatically be added to the package.json file as a contributor.
+
+## Commiting
+
+This repo uses a commit convention. A typical commit message might read:
 
 ```
-git clone https://github.com/SafdarJamal/vite-template-react.git
-cd vite-template-react
+    fix: correct home screen layout
 ```
 
-Make it your own:
+The first part of this is the commit "type". The most common types are "feat" for new features, and "fix" for bugfixes. Using these commit types helps us correctly manage our version numbers and changelogs. Since our release process calculates new version numbers from our commits it is very important to get this right.
 
-```
-rm -rf .git && git init && npm init
-git add .
-git commit -m "Initial commit"
-```
+- `feat` is for introducing a new feature
+- `fix` is for bug fixes
+- `docs` for documentation only changes
+- `style` is for code formatting only
+- `refactor` is for changes to code which should not be detectable by users or testers
+- `test` is for changes which only touch test files or related tooling
+- `build` is for changes which only touch our develop/release tools
+- `chore` is for housekeeping tasks such as hydrating from another branch
 
-Install dependencies:
+After the type and scope there should be a colon.
 
-```
-npm i
-```
+The "subject" of the commit follows. It should be a short indication of the change. The commit convention prefers that this is written in the present-imperative tense.
 
-Now, you can start a local web server by running:
+### Commit linting
 
-```
-npm start
-```
-
-And then open http://localhost:3000 to view it in the browser.
-
-#### Available Scripts
-
-In this project, you can run the following scripts:
-
-| Script        | Description                                             |
-| ------------- | ------------------------------------------------------- |
-| npm start     | Runs the app in the development mode.                   |
-| npm test      | Launches the test runner in the interactive watch mode. |
-| npm run build | Builds the app for production to the `dist` folder.     |
-| npm run serve | Serves the production build from the `dist` folder.     |
-
-## Credits
-
-Vite Template React is built and maintained by [Safdar Jamal](https://safdarjamal.github.io).
-
-## License
-
-This project is licensed under the terms of the [MIT license](https://github.com/SafdarJamal/vite-template-react/blob/main/LICENSE).
+Each time you commit the message will be checked against these standards in a pre-commit hook. Additionally all the commits in a PR branch will be linted before it can be merged to main.
