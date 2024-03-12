@@ -16,15 +16,6 @@ The Core Registry UI can be hosted as a web application, either for internal use
 
 To host the UI on the web, use the [web-build.tar.gz file from the releases page](https://github.com/Chia-Network/core-registry-ui/releases). One of the simplest solutions is to uncompress these files into a [public S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html). These files could also be served by any webserver, such as Nginx or Apache.  
 
-#### Prerequisites
-
-You'll need:
-
-- Git
-- [nvm](https://github.com/nvm-sh/nvm)
-
-  This app uses `nvm` to align node versions across development, CI and production. If you're working on Windows you should consider [nvm-windows](https://github.com/coreybutler/nvm-windows)
-
 ## Contributing
 
 Upon your first commit, you will automatically be added to the package.json file as a contributor.
