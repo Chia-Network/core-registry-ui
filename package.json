@@ -1,6 +1,6 @@
 {
   "name": "core-registry-ui",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "scripts": {
     "start": "nf start -p 3001",
     "electron": "electron .",
