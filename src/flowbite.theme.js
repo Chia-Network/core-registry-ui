@@ -1,8 +1,8 @@
 export default () => ({
   theme: {
     dropdown: {
-      arrowIcon: "ml-2 h-11 w-4 items-center justify-center",
-      content: "py-1 focus:outline-none",
+      arrowIcon: "ml-2 w-4 self-center justify-center",
+      content: "items-center  py-1 focus:outline-none",
       floating: {
         animation: "transition-opacity",
         arrow: {
@@ -23,7 +23,7 @@ export default () => ({
         hidden: "invisible opacity-0",
         item: {
           container: "focus:outline-none",
-          base: "focus:outline-none flex items-center justify-start py-2 px-4 text-sm text-gray-700 cursor-pointer w-full hover:bg-gray-900 focus:outline-none dark:text-gray-200 dark:hover:bg-gray-900 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
+          base: "focus:outline-none flex items-center justify-start py-2 px-4 text-sm text-white cursor-pointer w-full hover:bg-gray-900 focus:outline-none dark:text-gray-200 dark:hover:bg-gray-900 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
           icon: "mr-2 h-4 w-4 focus:outline-none",
         },
         style: {
