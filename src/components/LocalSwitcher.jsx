@@ -22,9 +22,6 @@ const LocaleSwitcher = ({ handleLocaleChange }) => {
   return (
     <Dropdown
       label={currentLanguage}
-      onChange={(v) => {
-        console.log(v);
-      }}
     >
       {Object.keys(LANGUAGE_CODES).map((key) => (
         <Dropdown.Item
