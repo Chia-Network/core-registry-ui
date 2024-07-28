@@ -1,3 +1,17 @@
+# [0.1.0](https://github.com/Chia-Network/core-registry-ui/compare/0.0.15...0.1.0) (2024-07-28)
+
+
+### Bug Fixes
+
+* removed console log from LocalSwitcher ([f5f17d6](https://github.com/Chia-Network/core-registry-ui/commit/f5f17d673ae226faeaab768e24d02a4af944e124))
+
+
+### Features
+
+* implement localization to broadcast locale changes to child apps ([234dba3](https://github.com/Chia-Network/core-registry-ui/commit/234dba3ff89070ba4e4c5d303426cdc391f2048f))
+
+
+
 ## [0.0.15](https://github.com/Chia-Network/core-registry-ui/compare/0.0.14...0.0.15) (2024-03-13)
 
 
