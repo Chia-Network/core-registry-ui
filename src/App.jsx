@@ -6,6 +6,7 @@ import { ExplorerLogo } from "./components/ExplorerLogo";
 import { TokenizationLogo } from "./components/TokenizationLogo";
 import { Flowbite, Button, Modal } from "flowbite-react";
 import flowbiteThemeSettings from "./flowbite.theme";
+import { LocaleSwitcher } from "./components/LocalSwitcher";
 
 const appLinks = {
   cadt: {
@@ -37,9 +38,36 @@ const App = () => {
   }, [flowbiteThemeSettings]);
 
   const ActiveLogo = activeApp.logo;
-  const TokenizationLogo = appLinks["climateTokenization"].logo;
-  const ExplorerLogo = appLinks["climateExplorer"].logo;
-  const CadtLogo = appLinks["cadt"].logo;
+
+  function getIframeOrigin(iframe) {
+    try {
+      const url = new URL(iframe.src);
+      return url.origin;
+    } catch (error) {
+      console.error("Invalid iframe URL", error);
+      return null;
+    }
+  }
+
+  function sendMessageToIframe(iframe, message) {
+    const targetOrigin = getIframeOrigin(iframe);
+    if (targetOrigin && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(message, targetOrigin);
+    } else {
+      console.error(
+        "Failed to determine target origin or iframe is not available"
+      );
+    }
+  }
+
+  const handleLocaleChange = (event) => {
+    const message = { changeLocale: event };
+    [cadtRef, climateExplorerRef, climateTokenizationRef].forEach((ref) => {
+      if (ref.current) {
+        sendMessageToIframe(ref.current, message);
+      }
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,12 +76,9 @@ const App = () => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // Validation function for host
     const isValidHost = (host) => /^https?:\/\/.+(:\d{1,5})?$/.test(host);
-    // Validation function for API key (adjust as needed)
     const isValidApiKey = (key) => key.trim() !== "";
 
-    // Array containing the field names, corresponding error element IDs, and validation functions
     const fields = [
       {
         name: "cadtRegistryHost",
@@ -180,17 +205,18 @@ const App = () => {
           ) : (
             <div></div>
           )}
-
-          {validateLocalStorage() ? (
-            <Button color="gray" onClick={handleDisconnect}>
-              Disconnect
-            </Button>
-          ) : (
-            <Button color="gray" onClick={() => setShowConnect(true)}>
-              Connect
-            </Button>
-          )}
-
+          <div className="flex gap-8 items-center">
+            <LocaleSwitcher handleLocaleChange={handleLocaleChange} />
+            {validateLocalStorage() ? (
+              <Button color="gray" onClick={handleDisconnect}>
+                Disconnect
+              </Button>
+            ) : (
+              <Button color="gray" onClick={() => setShowConnect(true)}>
+                Connect
+              </Button>
+            )}
+          </div>
           {showConnect && (
             <Modal show={true} onClose={() => setShowConnect(false)}>
               <Modal.Header>Connect to Core Registry</Modal.Header>
