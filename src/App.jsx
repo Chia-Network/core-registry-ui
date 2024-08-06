@@ -1,12 +1,12 @@
 import "./App.css";
-import { useState, useRef, useEffect, useMemo } from "react";
-import { Dropdown } from "flowbite-react";
+import React, { useRef, useMemo, useEffect, useState } from "react";
+import { Dropdown, Flowbite, Button, Modal } from "flowbite-react";
 import { CadtLogo } from "./components/CadtLogo";
 import { ExplorerLogo } from "./components/ExplorerLogo";
 import { TokenizationLogo } from "./components/TokenizationLogo";
-import { Flowbite, Button, Modal } from "flowbite-react";
 import flowbiteThemeSettings from "./flowbite.theme";
 import { LocaleSwitcher } from "./components/LocalSwitcher";
+import themeColors from "./theme";
 
 const appLinks = {
   cadt: {
@@ -60,6 +60,56 @@ const App = () => {
     }
   }
 
+  const handleIframeLoad = (iframe) => {
+    const iframeWindow = iframe.contentWindow;
+
+    const messageListener = (event) => {
+      if (event.origin !== new URL(iframe.src).origin) return;
+      if (event.data === "leftNavLoaded") {
+        window.removeEventListener("message", messageListener);
+        sendMessageToIframe(iframe, { colors: themeColors });
+      }
+    };
+
+    iframeWindow.addEventListener("load", () => {
+      const leftNav = iframe.contentDocument.getElementById("left-nav");
+      if (leftNav) {
+        iframeWindow.postMessage("leftNavLoaded", new URL(iframe.src).origin);
+      }
+    });
+
+    window.addEventListener("message", messageListener);
+  };
+
+  useEffect(() => {
+    sendColorSettingsToIframes();
+  }, [activeApp.link, showConnect]);
+
+  function getIframeOrigin(iframe) {
+    try {
+      const url = new URL(iframe.src);
+      return url.origin;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function sendMessageToIframe(iframe, message) {
+    const targetOrigin = getIframeOrigin(iframe);
+    if (targetOrigin && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(message, targetOrigin);
+    }
+  }
+
+  const sendColorSettingsToIframes = () => {
+    const message = { colors: themeColors };
+    [cadtRef, climateExplorerRef, climateTokenizationRef].forEach((ref) => {
+      if (ref.current) {
+        sendMessageToIframe(ref.current, message);
+      }
+    });
+  };
+
   const handleLocaleChange = (event) => {
     const message = { changeLocale: event };
     [cadtRef, climateExplorerRef, climateTokenizationRef].forEach((ref) => {
@@ -68,6 +118,14 @@ const App = () => {
       }
     });
   };
+
+  useEffect(() => {
+    [cadtRef, climateExplorerRef, climateTokenizationRef].forEach((ref) => {
+      if (ref.current) {
+        handleIframeLoad(ref.current);
+      }
+    });
+  }, [showConnect]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -184,7 +242,11 @@ const App = () => {
       <div className="App">
         <header
           className="App-header px-4"
-          style={{ display: "flex", justifyContent: "space-between" }}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            backgroundColor: themeColors.topBarBgColor,
+          }}
         >
           {validateLocalStorage() ? (
             <Dropdown label={<ActiveLogo />} size="lg">
@@ -350,6 +412,7 @@ const App = () => {
               <iframe
                 ref={cadtRef}
                 src={appLinks["cadt"].link}
+                onLoadedData={() => handleIframeLoad(cadtRef.current)}
                 width="100%"
                 height="100%"
               ></iframe>
@@ -366,6 +429,9 @@ const App = () => {
               <iframe
                 ref={climateTokenizationRef}
                 src={appLinks["climateTokenization"].link}
+                onLoadedData={() =>
+                  handleIframeLoad(climateTokenizationRef.current)
+                }
                 width="100%"
                 height="100%"
               ></iframe>
@@ -382,6 +448,9 @@ const App = () => {
               <iframe
                 ref={climateExplorerRef}
                 src={appLinks["climateExplorer"].link}
+                onLoadedData={() =>
+                  handleIframeLoad(climateExplorerRef.current)
+                }
                 width="100%"
                 height="100%"
               ></iframe>
