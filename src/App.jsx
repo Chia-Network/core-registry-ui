@@ -39,7 +39,7 @@ const App = () => {
 
   const ActiveLogo = activeApp.logo;
 
-  function getIframeOrigin(iframe) {
+  const getIframeOrigin = (iframe) => {
     try {
       const url = new URL(iframe.src);
       return url.origin;
@@ -47,9 +47,9 @@ const App = () => {
       console.error("Invalid iframe URL", error);
       return null;
     }
-  }
+  };
 
-  function sendMessageToIframe(iframe, message) {
+  const sendMessageToIframe = (iframe, message) => {
     const targetOrigin = getIframeOrigin(iframe);
     if (targetOrigin && iframe.contentWindow) {
       iframe.contentWindow.postMessage(message, targetOrigin);
@@ -58,7 +58,7 @@ const App = () => {
         "Failed to determine target origin or iframe is not available"
       );
     }
-  }
+  };
 
   const handleIframeLoad = (iframe) => {
     const iframeWindow = iframe.contentWindow;
@@ -84,22 +84,6 @@ const App = () => {
   useEffect(() => {
     sendColorSettingsToIframes();
   }, [activeApp.link, showConnect]);
-
-  function getIframeOrigin(iframe) {
-    try {
-      const url = new URL(iframe.src);
-      return url.origin;
-    } catch (_) {
-      return null;
-    }
-  }
-
-  function sendMessageToIframe(iframe, message) {
-    const targetOrigin = getIframeOrigin(iframe);
-    if (targetOrigin && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(message, targetOrigin);
-    }
-  }
 
   const sendColorSettingsToIframes = () => {
     const message = { colors: themeColors };
@@ -216,7 +200,7 @@ const App = () => {
     setShowConnect(true);
   };
 
-  function validateLocalStorage() {
+  const validateLocalStorage = () => {
     const keys = [
       "cadtRemoteServerAddress",
       "cadtRemoteServerApiKey",
@@ -235,8 +219,9 @@ const App = () => {
     }
 
     return true;
-  }
+  };
 
+  
   return (
     <Flowbite theme={themeSettings}>
       <div className="App">
