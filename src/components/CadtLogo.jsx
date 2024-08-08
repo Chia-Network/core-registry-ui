@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { withTheme } from "styled-components";
 import styled from "styled-components";
 
-import appLogo from "../assets/img/Registry.svg";
+import defaultLogo from "../assets/img/Registry.svg";
 
 const LogoContainer = styled("div")`
   display: flex;
@@ -17,10 +17,47 @@ const LogoContainer = styled("div")`
 `;
 
 const CadtLogo = withTheme(({ width = 50, height = 50 }) => {
+  const [svgContent, setSvgContent] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSVG = async () => {
+      try {
+        const response = await fetch("/RegistryCustom.svg");
+        if (response.ok) {
+          const svgText = await response.text();
+          setSvgContent(svgText);
+        }
+      } catch (_) {
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSVG();
+  }, []);
+
+  const svgDataUrl = `data:image/svg+xml;base64,${btoa(svgContent)}`;
+
   return (
     <LogoContainer>
-      <img src={appLogo} width={height} height={width} />
-      Registry
+      {isLoading ? (
+        <></>
+      ) : (
+        <>
+          {svgContent ? (
+            <img
+              src={svgDataUrl}
+              width={width}
+              height={height}
+              alt="Cadt Logo"
+            />
+          ) : (
+            <img src={defaultLogo} width={height} height={width} alt="Cadt Logo" />
+          )}
+          Registry
+        </>
+      )}
     </LogoContainer>
   );
 });
