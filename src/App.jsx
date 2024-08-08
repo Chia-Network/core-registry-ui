@@ -3,11 +3,17 @@ import React, { useRef, useMemo, useEffect, useState } from "react";
 import { Dropdown, Flowbite, Button, Modal } from "flowbite-react";
 import { CadtLogo } from "./components/CadtLogo";
 import { ExplorerLogo } from "./components/ExplorerLogo";
+import { LocaleSwitcher } from "./components/LocalSwitcher";
 import { TokenizationLogo } from "./components/TokenizationLogo";
 import flowbiteThemeSettings from "./flowbite.theme";
-import { ThemeProvider } from "styled-components";
-import getTheme from "./theme";
-import Header from "./components/Header";
+import styled, { ThemeProvider } from "styled-components";
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: ${(props) => props.theme.topBarBgColor};
+`;
 
 const appLinks = {
   cadt: {
@@ -28,7 +34,7 @@ const appLinks = {
 };
 
 const App = () => {
-  const theme = getTheme();
+  const [theme, setTheme] = useState({});
   const [activeApp, setActiveApp] = useState(appLinks["cadt"]);
   const [showConnect, setShowConnect] = useState(false);
   const cadtRef = useRef(null);
@@ -67,9 +73,9 @@ const App = () => {
 
     const messageListener = (event) => {
       if (event.origin !== new URL(iframe.src).origin) return;
-      if (event.data === "appLoaded") {
+      if (event.data === "appLoaded" && theme) {
         window.removeEventListener("message", messageListener);
-        sendMessageToIframe(iframe, { customThemeColors: getTheme() });
+        sendMessageToIframe(iframe, { customThemeColors: theme });
       }
     };
 
@@ -84,11 +90,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    sendColorSettingsToIframes();
-  }, [activeApp.link, showConnect]);
+    theme && sendColorSettingsToIframes();
+  }, [activeApp.link, showConnect, theme]);
 
   const sendColorSettingsToIframes = () => {
-    const message = { customThemeColors: getTheme() };
+    const message = { customThemeColors: theme };
     [cadtRef, climateExplorerRef, climateTokenizationRef].forEach((ref) => {
       if (ref.current) {
         sendMessageToIframe(ref.current, message);
@@ -111,7 +117,21 @@ const App = () => {
         handleIframeLoad(ref.current);
       }
     });
-  }, [showConnect]);
+  }, [showConnect, theme]);
+
+  useEffect(() => {
+    const fetchTheme = async () => {
+      try {
+        const themeResponse = await fetch("/theme.json");
+        if (themeResponse.ok) {
+          const customTheme = await themeResponse.json();
+          setTheme(customTheme);
+        }
+      } catch (_) {}
+    };
+
+    fetchTheme();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -227,17 +247,158 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Flowbite theme={themeSettings}>
         <div className="App">
-          <Header
-            activeApp={activeApp}
-            appLinks={appLinks}
-            setActiveApp={setActiveApp}
-            showConnect={showConnect}
-            setShowConnect={setShowConnect}
-            handleLocaleChange={handleLocaleChange}
-            handleDisconnect={handleDisconnect}
-            validateLocalStorage={validateLocalStorage}
-            handleSubmit={handleSubmit}
-          />
+          <Header className="App-header px-4">
+            {validateLocalStorage() ? (
+              <Dropdown label={<ActiveLogo />} size="lg">
+                <Dropdown.Item onClick={() => setActiveApp(appLinks["cadt"])}>
+                  <CadtLogo />
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => setActiveApp(appLinks["climateTokenization"])}
+                >
+                  <TokenizationLogo />
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => setActiveApp(appLinks["climateExplorer"])}
+                >
+                  <ExplorerLogo />
+                </Dropdown.Item>
+              </Dropdown>
+            ) : (
+              <div></div>
+            )}
+            <div className="flex gap-8 items-center">
+              <LocaleSwitcher handleLocaleChange={handleLocaleChange} />
+              {validateLocalStorage() ? (
+                <Button color="gray" onClick={handleDisconnect}>
+                  Disconnect
+                </Button>
+              ) : (
+                <Button color="gray" onClick={() => setShowConnect(true)}>
+                  Connect
+                </Button>
+              )}
+            </div>
+            {showConnect && (
+              <Modal show={true} onClose={() => setShowConnect(false)}>
+                <Modal.Header>Connect to Core Registry</Modal.Header>
+                <Modal.Body>
+                  <form id="connectForm" onSubmit={handleSubmit}>
+                    <div className="space-y-8">
+                      <div className="space-y-4">
+                        <label className="block text-lg font-semibold text-gray-700">
+                          CADT Registry
+                        </label>
+                        <div className="space-y-2">
+                          <label className="block text-gray-600">
+                            Host <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="cadtRegistryHost"
+                            required
+                            pattern="https?://.+(:\d{1,5})?"
+                            className="w-full p-2 border rounded shadow-sm"
+                            placeholder="Enter CADT Registry Host URL"
+                          />
+                          <span
+                            id="cadtRegistryHostError"
+                            className="text-red-500"
+                          ></span>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="block text-gray-600">
+                            API Key <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="cadtRegistryApiKey"
+                            required
+                            className="w-full p-2 border rounded shadow-sm"
+                            placeholder="Enter CADT Registry API Key"
+                          />
+                          <span
+                            id="cadtRegistryApiKeyError"
+                            className="text-red-500"
+                          ></span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <label className="block text-lg font-semibold text-gray-700">
+                          Climate Tokenization Engine
+                        </label>
+                        <div className="space-y-2">
+                          <label className="block text-gray-600">
+                            Host <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="climateTokenizationEngineHost"
+                            required
+                            pattern="https?://.+(:\d{1,5})?"
+                            className="w-full p-2 border rounded shadow-sm"
+                            placeholder="Enter Climate Tokenization Engine Host URL"
+                          />
+                          <span
+                            id="climateTokenizationEngineHostError"
+                            className="text-red-500"
+                          ></span>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="block text-gray-600">
+                            API Key <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="climateTokenizationEngineApiKey"
+                            required
+                            className="w-full p-2 border rounded shadow-sm"
+                            placeholder="Enter Climate Tokenization Engine API Key"
+                          />
+                          <span
+                            id="climateTokenizationEngineApiKeyError"
+                            className="text-red-500"
+                          ></span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <label className="block text-lg font-semibold text-gray-700">
+                          Climate Explorer
+                        </label>
+                        <div className="space-y-2">
+                          <label className="block text-gray-600">
+                            Host <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="climateExplorerHost"
+                            required
+                            pattern="https?://.+(:\d{1,5})?"
+                            className="w-full p-2 border rounded shadow-sm"
+                            placeholder="Enter Climate Explorer Host URL"
+                          />
+                          <span
+                            id="climateExplorerHostError"
+                            className="text-red-500"
+                          ></span>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button color="gray" onClick={() => setShowConnect(false)}>
+                    Cancel
+                  </Button>
+                  <Button color="primary" onClick={handleSubmit}>
+                    Connect
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+            )}
+          </Header>
 
           {validateLocalStorage() ? (
             <>

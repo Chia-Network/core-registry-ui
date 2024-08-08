@@ -1,10 +1,9 @@
-import React from "react";
-import { withTheme } from "styled-components";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import appLogo from "../assets/img/Tokenization.svg";
+import logo from "../assets/img/Tokenization.svg";
 
-const LogoContainer = styled("div")`
+const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,13 +15,56 @@ const LogoContainer = styled("div")`
   text-transform: uppercase;
 `;
 
-const TokenizationLogo = withTheme(({ width = 50, height = 50 }) => {
+const TokenizationLogo = ({ width = 50, height = 50 }) => {
+  const [svgContent, setSvgContent] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSVG = async () => {
+      try {
+        const response = await fetch("/TokenizationCustom.svg");
+        if (response.ok) {
+          const svgText = await response.text();
+          setSvgContent(svgText);
+        }
+      } catch (error) {
+        console.error("Error fetching SVG:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSVG();
+  }, []);
+
+  const svgDataUrl = `data:image/svg+xml;base64,${btoa(svgContent)}`;
+
   return (
     <LogoContainer>
-      <img src={appLogo} width={height} height={width} />
-      Tokenization
+      {isLoading ? (
+        <></>
+      ) : (
+        <>
+          {svgContent ? (
+            <img
+              src={svgDataUrl}
+              width={width}
+              height={height}
+              alt="Tokenization Logo"
+            />
+          ) : (
+            <img
+              src={logo}
+              width={width}
+              height={height}
+              alt="Tokenization Logo"
+            />
+          )}
+          Tokenization
+        </>
+      )}
     </LogoContainer>
   );
-});
+};
 
 export { TokenizationLogo };
