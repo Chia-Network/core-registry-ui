@@ -1,6 +1,12 @@
 {
-  "topBarBgColor": "#6e7d7f",
-  "leftNavHighlightColor": "#fff",
-  "leftNavBgColor": "rgb(240, 242, 245)",
-  "leftNavTextColor": "rgb(110, 125, 127)"
+  "colors": {
+    "default": {
+      "topBarBg": "#6e7d7f",
+      "leftNav": {
+        "bg": "rgb(240, 242, 245)",
+        "text": "#6e7d7f",
+        "highlight": "#fff"
+      }
+    }
+  }
 }

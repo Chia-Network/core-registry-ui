@@ -7,12 +7,13 @@ import { LocaleSwitcher } from "./components/LocalSwitcher";
 import { TokenizationLogo } from "./components/TokenizationLogo";
 import flowbiteThemeSettings from "./flowbite.theme";
 import styled, { ThemeProvider } from "styled-components";
+import { HeaderBranding } from "./components/HeaderBranding";
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  background-color: ${(props) => props.theme.topBarBgColor};
+  background-color: ${(props) => props.theme?.colors?.default?.topBarBg};
 `;
 
 const appLinks = {
@@ -75,7 +76,7 @@ const App = () => {
       if (event.origin !== new URL(iframe.src).origin) return;
       if (event.data === "appLoaded" && theme) {
         window.removeEventListener("message", messageListener);
-        sendMessageToIframe(iframe, { customThemeColors: theme });
+        theme && sendColorSettingsToIframes();
       }
     };
 
@@ -267,6 +268,7 @@ const App = () => {
             ) : (
               <div></div>
             )}
+            <HeaderBranding />
             <div className="flex gap-8 items-center">
               <LocaleSwitcher handleLocaleChange={handleLocaleChange} />
               {validateLocalStorage() ? (
