@@ -36,7 +36,6 @@ const HeaderBranding = withTheme(({ width = 50, height = 50 }) => {
   return svgContent ? (
     <LogoContainer>
       <img src={svgDataUrl} width={width} height={height} alt="Header Branding" />
-      Registry
     </LogoContainer>
   ) : (
     <></>
