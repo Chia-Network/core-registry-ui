@@ -5,3 +5,8 @@ dist-ssr
 *.local
 apps
 build
+theme.json
+ExplorerCustom.svg
+RegistryCustom.svg
+TokenizationCustom.svg
+HeaderBrandingCustom.svg
