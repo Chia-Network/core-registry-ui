@@ -1,3 +1,21 @@
+## [0.1.1](https://github.com/Chia-Network/core-registry-ui/compare/0.1.0...0.1.1) (2024-08-15)
+
+
+### Bug Fixes
+
+* added HeaderBrandingCustom.svg component, theme.json structure ([a8051d3](https://github.com/Chia-Network/core-registry-ui/commit/a8051d3bc0f7b3737c64d1eb806505dfd8dc0372))
+* deleted custom theme and svgs from public folder ([17ecd10](https://github.com/Chia-Network/core-registry-ui/commit/17ecd1031188f96bf36f8c2a7949d1db0c7ec6c6))
+* used arrow functions for consistency ([070c9b1](https://github.com/Chia-Network/core-registry-ui/commit/070c9b18f6ce3d94370fd11be6f39467f802c281))
+* used theme.json and logo svgs from server root if exist ([9d7f4a1](https://github.com/Chia-Network/core-registry-ui/commit/9d7f4a1df150f0fb8859e234d4721c00519dd464))
+
+
+### Features
+
+* implement theme changing feature to propagate changesto child apps ([499c44a](https://github.com/Chia-Network/core-registry-ui/commit/499c44a2921449607aa3669235be1fd632b7062b))
+* implement theme fetching and storage from theme.js and used styled component ([2f418bc](https://github.com/Chia-Network/core-registry-ui/commit/2f418bc343c6d0989b1044265eb12fb604efdb8e))
+
+
+
 # [0.1.0](https://github.com/Chia-Network/core-registry-ui/compare/0.0.15...0.1.0) (2024-07-28)
 
 
