@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import styled, { withTheme } from "styled-components";
 
 import logo from "../assets/img/Explorer.svg";
 
@@ -15,13 +15,50 @@ const LogoContainer = styled("div")`
   text-transform: uppercase;
 `;
 
-const ExplorerLogo = ({ width = 50, height = 50 }) => {
+const ExplorerLogo = withTheme(({ width = 50, height = 50 }) => {
+  const [svgContent, setSvgContent] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSVG = async () => {
+      try {
+        const response = await fetch("/ExplorerCustom.svg");
+        if (response.ok) {
+          const svgText = await response.text();
+          setSvgContent(svgText);
+        }
+      } catch (_) {
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSVG();
+  }, []);
+
+  const svgDataUrl = `data:image/svg+xml;base64,${btoa(svgContent)}`;
+
   return (
     <LogoContainer>
-      <img src={logo} width={height} height={width} />
-      Explorer
+      {isLoading ? (
+        <></>
+      ) : (
+        <>
+          {svgContent ? (
+            <img
+              src={svgDataUrl}
+              width={width}
+              height={height}
+              alt="Explorer Logo"
+            />
+          ) : (
+            <img src={logo} width={height} height={width} alt="Explorer Logo" />
+          )}
+          Explorer
+        </>
+      )}
     </LogoContainer>
   );
-};
+});
 
 export { ExplorerLogo };

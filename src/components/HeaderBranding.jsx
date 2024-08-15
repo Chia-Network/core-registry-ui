@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { withTheme } from "styled-components";
 import styled from "styled-components";
 
-import defaultLogo from "../assets/img/Registry.svg";
-
 const LogoContainer = styled("div")`
   display: flex;
   justify-content: center;
@@ -16,22 +14,18 @@ const LogoContainer = styled("div")`
   text-transform: uppercase;
 `;
 
-const CadtLogo = withTheme(({ width = 50, height = 50 }) => {
+const HeaderBranding = withTheme(({ width = 50, height = 50 }) => {
   const [svgContent, setSvgContent] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSVG = async () => {
       try {
-        const response = await fetch("/RegistryCustom.svg");
+        const response = await fetch("/HeaderBrandingCustom.svg");
         if (response.ok) {
           const svgText = await response.text();
           setSvgContent(svgText);
         }
-      } catch (_) {
-      } finally {
-        setIsLoading(false);
-      }
+      } catch (_) {}
     };
 
     fetchSVG();
@@ -39,27 +33,13 @@ const CadtLogo = withTheme(({ width = 50, height = 50 }) => {
 
   const svgDataUrl = `data:image/svg+xml;base64,${btoa(svgContent)}`;
 
-  return (
+  return svgContent ? (
     <LogoContainer>
-      {isLoading ? (
-        <></>
-      ) : (
-        <>
-          {svgContent ? (
-            <img
-              src={svgDataUrl}
-              width={width}
-              height={height}
-              alt="Cadt Logo"
-            />
-          ) : (
-            <img src={defaultLogo} width={height} height={width} alt="Cadt Logo" />
-          )}
-          Registry
-        </>
-      )}
+      <img src={svgDataUrl} width={width} height={height} alt="Header Branding" />
     </LogoContainer>
+  ) : (
+    <></>
   );
 });
 
-export { CadtLogo };
+export { HeaderBranding };

@@ -16,6 +16,17 @@ The Core Registry UI can be hosted as a web application, either for internal use
 
 To host the UI on the web, use the [web-build.tar.gz file from the releases page](https://github.com/Chia-Network/core-registry-ui/releases). One of the simplest solutions is to uncompress these files into a [public S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html). These files could also be served by any webserver, such as Nginx or Apache.  
 
+#### Customize Colors and Icons
+
+The Core Registry UI supports color and icon customization by site administrators.  To customize the UI colors, copy the `theme.json.example` file to `theme.json` in the web root directory.  Edit the new `theme.json` file and replace the default colors with any valid css color definitions. 
+
+To customize icons, place SVG files in the web root with the following names:
+
+* RegistryCustom.svg
+* TokenizationCustom.svg
+* ExplorerCustom.svg
+* HeaderBrandingCustom.svg
+
 ## Contributing
 
 Upon your first commit, you will automatically be added to the package.json file as a contributor.
