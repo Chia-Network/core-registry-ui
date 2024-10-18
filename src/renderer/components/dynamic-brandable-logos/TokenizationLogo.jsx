@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { withTheme } from "styled-components";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 
-import defaultLogo from "../assets/img/Registry.svg";
+import logo from "../../assets/img/Tokenization.svg";
 
-const LogoContainer = styled("div")`
+const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,19 +15,20 @@ const LogoContainer = styled("div")`
   text-transform: uppercase;
 `;
 
-const CadtLogo = withTheme(({ width = 50, height = 50 }) => {
+const TokenizationLogo = ({width = 50, height = 50}) => {
   const [svgContent, setSvgContent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSVG = async () => {
       try {
-        const response = await fetch("/RegistryCustom.svg");
+        const response = await fetch("/TokenizationCustom.svg");
         if (response.ok) {
           const svgText = await response.text();
           setSvgContent(svgText);
         }
-      } catch (_) {
+      } catch (error) {
+        console.error("Error fetching SVG:", error);
       } finally {
         setIsLoading(false);
       }
@@ -50,16 +50,21 @@ const CadtLogo = withTheme(({ width = 50, height = 50 }) => {
               src={svgDataUrl}
               width={width}
               height={height}
-              alt="Cadt Logo"
+              alt="Tokenization Logo"
             />
           ) : (
-            <img src={defaultLogo} width={height} height={width} alt="Cadt Logo" />
+            <img
+              src={logo}
+              width={width}
+              height={height}
+              alt="Tokenization Logo"
+            />
           )}
-          Registry
+          Tokenization
         </>
       )}
     </LogoContainer>
   );
-});
+};
 
-export { CadtLogo };
+export {TokenizationLogo};

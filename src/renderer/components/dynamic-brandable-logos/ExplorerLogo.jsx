@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import logo from "../assets/img/Tokenization.svg";
+import logo from '../../assets/img/Explorer.svg';
 
-const LogoContainer = styled.div`
+const LogoContainer = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,20 +15,19 @@ const LogoContainer = styled.div`
   text-transform: uppercase;
 `;
 
-const TokenizationLogo = ({ width = 50, height = 50 }) => {
-  const [svgContent, setSvgContent] = useState("");
+const ExplorerLogo = ({ width = 50, height = 50 }) => {
+  const [svgContent, setSvgContent] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSVG = async () => {
       try {
-        const response = await fetch("/TokenizationCustom.svg");
+        const response = await fetch('/ExplorerCustom.svg');
         if (response.ok) {
           const svgText = await response.text();
           setSvgContent(svgText);
         }
-      } catch (error) {
-        console.error("Error fetching SVG:", error);
+      } catch (_) {
       } finally {
         setIsLoading(false);
       }
@@ -46,25 +45,15 @@ const TokenizationLogo = ({ width = 50, height = 50 }) => {
       ) : (
         <>
           {svgContent ? (
-            <img
-              src={svgDataUrl}
-              width={width}
-              height={height}
-              alt="Tokenization Logo"
-            />
+            <img src={svgDataUrl} width={width} height={height} alt="Explorer Logo" />
           ) : (
-            <img
-              src={logo}
-              width={width}
-              height={height}
-              alt="Tokenization Logo"
-            />
+            <img src={logo} width={height} height={width} alt="Explorer Logo" />
           )}
-          Tokenization
+          Explorer
         </>
       )}
     </LogoContainer>
   );
 };
 
-export { TokenizationLogo };
+export { ExplorerLogo };

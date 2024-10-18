@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { withTheme } from "styled-components";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled, { withTheme } from 'styled-components';
 
-const LogoContainer = styled("div")`
+const LogoContainer = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,13 +13,13 @@ const LogoContainer = styled("div")`
   text-transform: uppercase;
 `;
 
-const HeaderBranding = withTheme(({ width = 50, height = 50 }) => {
-  const [svgContent, setSvgContent] = useState("");
+const HeaderBrandingLogo = withTheme(({ width = 50, height = 50 }) => {
+  const [svgContent, setSvgContent] = useState('');
 
   useEffect(() => {
     const fetchSVG = async () => {
       try {
-        const response = await fetch("/HeaderBrandingCustom.svg");
+        const response = await fetch('/HeaderBrandingCustom.svg');
         if (response.ok) {
           const svgText = await response.text();
           setSvgContent(svgText);
@@ -42,4 +41,4 @@ const HeaderBranding = withTheme(({ width = 50, height = 50 }) => {
   );
 });
 
-export { HeaderBranding };
+export { HeaderBrandingLogo };

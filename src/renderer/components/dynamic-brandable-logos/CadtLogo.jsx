@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styled, { withTheme } from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import logo from "../assets/img/Explorer.svg";
+import defaultLogo from '../../assets/img/Registry.svg';
 
-const LogoContainer = styled("div")`
+const LogoContainer = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,14 +15,14 @@ const LogoContainer = styled("div")`
   text-transform: uppercase;
 `;
 
-const ExplorerLogo = withTheme(({ width = 50, height = 50 }) => {
-  const [svgContent, setSvgContent] = useState("");
+const CadtLogo = ({ width = 50, height = 50 }) => {
+  const [svgContent, setSvgContent] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSVG = async () => {
       try {
-        const response = await fetch("/ExplorerCustom.svg");
+        const response = await fetch('/RegistryCustom.svg');
         if (response.ok) {
           const svgText = await response.text();
           setSvgContent(svgText);
@@ -45,20 +45,15 @@ const ExplorerLogo = withTheme(({ width = 50, height = 50 }) => {
       ) : (
         <>
           {svgContent ? (
-            <img
-              src={svgDataUrl}
-              width={width}
-              height={height}
-              alt="Explorer Logo"
-            />
+            <img src={svgDataUrl} width={width} height={height} alt="Cadt Logo" />
           ) : (
-            <img src={logo} width={height} height={width} alt="Explorer Logo" />
+            <img src={defaultLogo} width={height} height={width} alt="Cadt Logo" />
           )}
-          Explorer
+          Registry
         </>
       )}
     </LogoContainer>
   );
-});
+};
 
-export { ExplorerLogo };
+export { CadtLogo };
