@@ -3,22 +3,22 @@ import { CadtLogo } from './dynamic-brandable-logos/CadtLogo';
 import { TokenizationLogo } from './dynamic-brandable-logos/TokenizationLogo';
 import { ExplorerLogo } from './dynamic-brandable-logos/ExplorerLogo';
 import React from 'react';
-import { CADT_SRC_LINK, CLIMATE_EXPLOER_SRC_LINK, TOKENIZATION_ENGINE_SRC_LINK } from '../utils/constants';
+import { CADT_SRC_URL, CLIMATE_EXPLOER_SRC_URL, TOKENIZATION_ENGINE_SRC_URL } from '../utils/constants';
 import { useManageSelectedAppUrl } from '../hooks/useManageSelectedAppUrl';
 
 const childAppInfo = Object.freeze({
   cadt: {
-    link: CADT_SRC_LINK,
+    link: CADT_SRC_URL,
     name: 'CAD Trust',
     logo: CadtLogo,
   },
   climateExplorer: {
-    link: CLIMATE_EXPLOER_SRC_LINK,
+    link: CLIMATE_EXPLOER_SRC_URL,
     name: 'Climate Explorer',
     logo: ExplorerLogo,
   },
   climateTokenization: {
-    link: TOKENIZATION_ENGINE_SRC_LINK,
+    link: TOKENIZATION_ENGINE_SRC_URL,
     name: 'Climate Tokenization Engine',
     logo: TokenizationLogo,
   },

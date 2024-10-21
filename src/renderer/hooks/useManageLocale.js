@@ -10,17 +10,20 @@ import {LANGUAGE_CODES, LOCAL_STORAGE_KEYS} from '../utils/constants';
 const useManageLocale = () => {
   const [languageCode, setHookStateLanguageCode] = useState(LANGUAGE_CODES.ENGLISH);
 
-  const setLocaleCode = useCallback((languageCode) => {
-    localStorage.setItem(LOCAL_STORAGE_KEYS.LANGUAGE_CODE, languageCode);
-    setHookStateLanguageCode(languageCode);
-  });
+  const setLocaleCode = useCallback(
+    (languageCode) => {
+      localStorage.setItem(LOCAL_STORAGE_KEYS.LANGUAGE_CODE, languageCode);
+      setHookStateLanguageCode(languageCode);
+    },
+    [languageCode],
+  );
 
   useEffect(() => {
     const savedLanguageCode = localStorage.getItem(LOCAL_STORAGE_KEYS.LANGUAGE_CODE);
     if (savedLanguageCode !== languageCode) {
       setHookStateLanguageCode(savedLanguageCode);
     }
-  }, []);
+  }, [languageCode]);
 
   return [languageCode, setLocaleCode];
 };

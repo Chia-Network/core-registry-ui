@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from 'react';
-import {CADT_SRC_LINK, LOCAL_STORAGE_KEYS} from '../utils/constants';
+import {CADT_SRC_URL, LOCAL_STORAGE_KEYS} from '../utils/constants';
 
 /**
  * manages the selected child app source URL in local storage
@@ -8,7 +8,7 @@ import {CADT_SRC_LINK, LOCAL_STORAGE_KEYS} from '../utils/constants';
  * - [1]: A function that sets the currently selected child app source URL in local storage.
  */
 const useManageSelectedAppUrl = () => {
-  const [childAppSourceUrl, setHookStatechildAppSourceUrl] = useState(CADT_SRC_LINK);
+  const [childAppSourceUrl, setHookStatechildAppSourceUrl] = useState(CADT_SRC_URL);
 
   const setSelectedChileAppSourceUrl = useCallback((childAppUrl) => {
     localStorage.setItem(LOCAL_STORAGE_KEYS.SELECTED_APP_URL, childAppUrl);
