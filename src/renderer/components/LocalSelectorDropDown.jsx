@@ -8,13 +8,13 @@ const LocaleSelectorDropDown = () => {
 
   return (
     <Dropdown label={selectedLanguageCode}>
-      {Object.keys(LANGUAGE_CODES).map((languageCode) => (
+      {Object.keys(LANGUAGE_CODES).map((languageKey) => (
         <Dropdown.Item
-          key={LANGUAGE_CODES[languageCode]}
-          onClick={() => setSelectedLanguageCode(LANGUAGE_CODES[languageCode])}
-          value={LANGUAGE_CODES[languageCode]}
+          key={LANGUAGE_CODES[languageKey]}
+          onClick={() => setSelectedLanguageCode(LANGUAGE_CODES[languageKey])}
+          value={LANGUAGE_CODES[languageKey]}
         >
-          {languageCode}
+          {languageKey}
         </Dropdown.Item>
       ))}
     </Dropdown>

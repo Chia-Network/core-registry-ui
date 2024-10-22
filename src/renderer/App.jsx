@@ -18,7 +18,13 @@ const App = () => {
   const climateExplorerRef = useRef(null);
   const climateTokenizationRef = useRef(null);
 
+  console.log('app.jsx connection settings set', connectionSettingsSet);
+  console.log('app.jsx selected language', selectedLocale);
+  console.log('app.jsx selected appUrl', selectedAppUrl);
+
   const handleIframeLoad = (iframe) => {
+    console.log('######## iframe loaded');
+
     if (!iframe) {
       return;
     }
@@ -101,6 +107,7 @@ const App = () => {
               display: selectedAppUrl === CADT_SRC_URL ? 'block' : 'none',
             }}
           >
+            <div>cadt</div>
             <iframe
               ref={cadtRef}
               src={CADT_SRC_URL}

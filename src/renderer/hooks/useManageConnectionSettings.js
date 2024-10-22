@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { API_SETTINGS_CONFIGURED, LOCAL_STORAGE_KEYS } from '../utils/constants';
+import { LOCAL_STORAGE_KEYS } from '../utils/constants';
 
 const keys = [
-  API_SETTINGS_CONFIGURED,
+  LOCAL_STORAGE_KEYS.API_SETTINGS_CONFIGURED,
   LOCAL_STORAGE_KEYS.CADT.API_URL,
   LOCAL_STORAGE_KEYS.CADT.API_KEY,
   LOCAL_STORAGE_KEYS.TOKENIZATION_ENGINE.API_URL,
@@ -24,8 +24,9 @@ const useManageConnectionSettings = () => {
   const validateLocalStorageConnectionSettings = () => {
     for (const key of keys) {
       const value = localStorage.getItem(key);
-      if (value === null || value === '') {
+      if ((key !== LOCAL_STORAGE_KEYS.API_SETTINGS_CONFIGURED && value === null) || value === '') {
         // If any key fails the check, remove all keys and return false
+        console.log('key', key, 'has value', value);
         keys.forEach((key) => localStorage.removeItem(key));
         setConnectionInfoInLocalStorage(false);
         return false;
@@ -43,7 +44,7 @@ const useManageConnectionSettings = () => {
   useEffect(() => {
     if (validateLocalStorageConnectionSettings()) {
       setConnectionInfoInLocalStorage(true);
-      localStorage.setItem(API_SETTINGS_CONFIGURED, 'true');
+      localStorage.setItem(LOCAL_STORAGE_KEYS.API_SETTINGS_CONFIGURED, 'true');
     } else {
       setConnectionInfoInLocalStorage(false);
     }

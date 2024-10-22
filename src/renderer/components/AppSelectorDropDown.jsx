@@ -26,10 +26,12 @@ const childAppInfo = Object.freeze({
 
 const AppSelectorDropDown = () => {
   const [activeAppUrl, setActiveAppUrl] = useManageSelectedAppUrl();
-  const activeApp = childAppInfo.filter((childApp) => childApp.link === activeAppUrl) || childAppInfo.cadt;
+  const activeApp =
+    Object.keys(childAppInfo).filter((childAppKey) => childAppKey[childAppKey]?.link === activeAppUrl) ||
+    childAppInfo.cadt;
 
   return (
-    <Dropdown label={<activeApp.logo />} size="lg">
+    <Dropdown label={activeApp.logo} size="lg">
       <Dropdown.Item onClick={() => setActiveAppUrl(childAppInfo.cadt.link)}>
         <CadtLogo />
       </Dropdown.Item>

@@ -20,7 +20,7 @@ const useManageLocale = () => {
 
   useEffect(() => {
     const savedLanguageCode = localStorage.getItem(LOCAL_STORAGE_KEYS.LANGUAGE_CODE);
-    if (savedLanguageCode !== languageCode) {
+    if (savedLanguageCode && savedLanguageCode !== languageCode) {
       setHookStateLanguageCode(savedLanguageCode);
     }
   }, [languageCode]);

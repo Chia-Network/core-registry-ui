@@ -1,7 +1,7 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { LOCAL_STORAGE_KEYS } from '../utils/constants';
 
-const ConnectForm = forwardRef((ref) => {
+const ConnectForm = forwardRef(({}, ref) => {
   const onSubmit = (event) => {
     if (event) event.preventDefault(); // Check if 'event' exists in case it's called from parent without an event
 
@@ -40,23 +40,29 @@ const ConnectForm = forwardRef((ref) => {
       },
     ];
 
+    let formValid = true;
+
     fields.forEach((field) => {
       const value = data[field.name];
       const errorElement = document.getElementById(field.errorId);
 
       if (!value) {
         errorElement.textContent = 'Field is required.';
-        return false;
+        formValid = false;
       } else if (!field.validation(value)) {
         errorElement.textContent =
           field.validation === isValidHost
             ? 'Enter a valid URL with http:// or https://. Port numbers are allowed.'
             : 'API key cannot be empty.';
-        return false;
+        formValid = false;
       } else {
         errorElement.textContent = ''; // Clear any previous error message
       }
     });
+
+    if (!formValid) {
+      return false;
+    }
 
     localStorage.setItem(LOCAL_STORAGE_KEYS.CADT.API_URL, data.cadtRegistryHost);
     localStorage.setItem(LOCAL_STORAGE_KEYS.CADT.API_KEY, data.cadtRegistryApiKey);

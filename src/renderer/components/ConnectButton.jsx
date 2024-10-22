@@ -9,13 +9,14 @@ const ConnectButton = () => {
 
   return (
     <>
-      {connectionSettingsSaved ? (
-        <Button color="gray" onClick={clearConnectionSettings}>
-          Disconnect
+      <div className="text-white">
+        <Button
+          color="none"
+          onClick={() => (connectionSettingsSaved ? clearConnectionSettings() : setShowConnectModal(true))}
+        >
+          {connectionSettingsSaved ? 'Disconnect' : 'Connect'}
         </Button>
-      ) : (
-        <Button onClick={() => setShowConnectModal(true)}>Connect</Button>
-      )}
+      </div>
       {showConnectModal && <ConnectModal onClose={() => setShowConnectModal(false)} />}
     </>
   );

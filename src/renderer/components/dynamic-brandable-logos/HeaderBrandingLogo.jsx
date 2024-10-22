@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 const LogoContainer = styled('div')`
   display: flex;
@@ -13,7 +13,7 @@ const LogoContainer = styled('div')`
   text-transform: uppercase;
 `;
 
-const HeaderBrandingLogo = withTheme(({ width = 50, height = 50 }) => {
+const HeaderBrandingLogo = ({ width = 50, height = 50 }) => {
   const [svgContent, setSvgContent] = useState('');
 
   useEffect(() => {
@@ -39,6 +39,6 @@ const HeaderBrandingLogo = withTheme(({ width = 50, height = 50 }) => {
   ) : (
     <></>
   );
-});
+};
 
 export { HeaderBrandingLogo };

@@ -17,7 +17,7 @@ const useManageSelectedAppUrl = () => {
 
   useEffect(() => {
     const savedChildAppSourceUrl = localStorage.getItem(LOCAL_STORAGE_KEYS.LANGUAGE_CODE);
-    if (savedChildAppSourceUrl !== childAppSourceUrl) {
+    if (savedChildAppSourceUrl && savedChildAppSourceUrl !== childAppSourceUrl) {
       setHookStatechildAppSourceUrl(savedChildAppSourceUrl);
     }
   }, []);

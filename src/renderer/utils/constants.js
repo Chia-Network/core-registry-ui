@@ -15,9 +15,9 @@ const LOCAL_STORAGE_KEYS = Object.freeze({
   SELECTED_APP_URL: 'selectedAppUrl',
 });
 
-const CADT_SRC_URL = '/apps/cadt/index.html';
-const CLIMATE_EXPLOER_SRC_URL = '/apps/climate_explorer/index.html';
-const TOKENIZATION_ENGINE_SRC_URL = '/apps/climate_tokenization_engine/index.html';
+const CADT_SRC_URL = 'apps/cadt/index.html';
+const CLIMATE_EXPLOER_SRC_URL = 'apps/climate_explorer/index.html';
+const TOKENIZATION_ENGINE_SRC_URL = 'apps/climate_tokenization_engine/index.html';
 
 const MESSAGES = Object.freeze({
   CHILD_APP_LOADED: 'childAppLoaded',
