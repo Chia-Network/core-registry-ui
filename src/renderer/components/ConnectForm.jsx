@@ -1,7 +1,9 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
-import { LOCAL_STORAGE_KEYS } from '../utils/constants';
+import { useManageConnectionSettings } from '../hooks/useManageConnectionSettings';
 
 const ConnectForm = forwardRef(({}, ref) => {
+  const [, setConnectionSettings] = useManageConnectionSettings();
+
   const onSubmit = (event) => {
     if (event) event.preventDefault(); // Check if 'event' exists in case it's called from parent without an event
 
@@ -64,11 +66,13 @@ const ConnectForm = forwardRef(({}, ref) => {
       return false;
     }
 
-    localStorage.setItem(LOCAL_STORAGE_KEYS.CADT.API_URL, data.cadtRegistryHost);
-    localStorage.setItem(LOCAL_STORAGE_KEYS.CADT.API_KEY, data.cadtRegistryApiKey);
-    localStorage.setItem(LOCAL_STORAGE_KEYS.CLIMATE_EXPLORER.API_URL, data.climateExplorerHost);
-    localStorage.setItem(LOCAL_STORAGE_KEYS.TOKENIZATION_ENGINE.API_URL, data.climateTokenizationEngineHost);
-    localStorage.setItem(LOCAL_STORAGE_KEYS.TOKENIZATION_ENGINE.API_KEY, data.climateTokenizationEngineApiKey);
+    setConnectionSettings({
+      cadtApiHost: data.cadtRegistryHost,
+      cadtApiKey: data.cadtRegistryApiKey,
+      explorerApiHost: data.climateExplorerHost,
+      tokenizationApiHost: data.climateTokenizationEngineHost,
+      tokenizationApiKey: data.climateTokenizationEngineApiKey,
+    });
 
     return true;
   };

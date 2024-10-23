@@ -4,12 +4,12 @@ import React, { useEffect, useRef } from 'react';
 import { CoreRegistryHeader } from './components/CoreRegistryHeader';
 import { useManageSelectedAppUrl } from './hooks/useManageSelectedAppUrl';
 import { useManageLocale } from './hooks/useManageLocale';
-import { CADT_SRC_URL, CLIMATE_EXPLOER_SRC_URL, MESSAGES, TOKENIZATION_ENGINE_SRC_URL } from './utils/constants';
+import { CADT_SRC_URL, CLIMATE_EXPLORER_SRC_URL, MESSAGES, TOKENIZATION_ENGINE_SRC_URL } from './utils/constants';
 import { sendMessageToIframe } from './utils/iframe-utils';
 import { useFetchHostFile } from './hooks/useFetchHostFile';
 
 const App = () => {
-  const [connectionSettingsSet] = useManageConnectionSettings();
+  const [connectionSettings] = useManageConnectionSettings();
   const [selectedAppUrl] = useManageSelectedAppUrl();
   const [selectedLocale] = useManageLocale();
   const [configLoading, config] = useFetchHostFile({ hostFilePath: '/config.json' });
@@ -18,7 +18,7 @@ const App = () => {
   const climateExplorerRef = useRef(null);
   const climateTokenizationRef = useRef(null);
 
-  console.log('app.jsx connection settings set', connectionSettingsSet);
+  console.log('app.jsx connection settings set', connectionSettings);
   console.log('app.jsx selected language', selectedLocale);
   console.log('app.jsx selected appUrl', selectedAppUrl);
 
@@ -37,6 +37,7 @@ const App = () => {
       }
     };
 
+    // TODO: address eventListener removal, if needed
     window.addEventListener('message', childAppMessageListener);
   };
 
@@ -99,7 +100,7 @@ const App = () => {
   return (
     <div className="App">
       <CoreRegistryHeader />
-      {connectionSettingsSet ? (
+      {connectionSettings ? (
         <>
           <div
             className="app-window"
@@ -107,7 +108,6 @@ const App = () => {
               display: selectedAppUrl === CADT_SRC_URL ? 'block' : 'none',
             }}
           >
-            <div>cadt</div>
             <iframe
               ref={cadtRef}
               src={CADT_SRC_URL}
@@ -133,12 +133,12 @@ const App = () => {
           <div
             className="app-window"
             style={{
-              display: selectedAppUrl === CLIMATE_EXPLOER_SRC_URL ? 'block' : 'none',
+              display: selectedAppUrl === CLIMATE_EXPLORER_SRC_URL ? 'block' : 'none',
             }}
           >
             <iframe
               ref={climateExplorerRef}
-              src={CLIMATE_EXPLOER_SRC_URL}
+              src={CLIMATE_EXPLORER_SRC_URL}
               onLoadedData={() => handleIframeLoad(climateExplorerRef.current)}
               width="100%"
               height="100%"

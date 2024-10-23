@@ -3,7 +3,7 @@ import { CadtLogo } from './dynamic-brandable-logos/CadtLogo';
 import { TokenizationLogo } from './dynamic-brandable-logos/TokenizationLogo';
 import { ExplorerLogo } from './dynamic-brandable-logos/ExplorerLogo';
 import React from 'react';
-import { CADT_SRC_URL, CLIMATE_EXPLOER_SRC_URL, TOKENIZATION_ENGINE_SRC_URL } from '../utils/constants';
+import { CADT_SRC_URL, CLIMATE_EXPLORER_SRC_URL, TOKENIZATION_ENGINE_SRC_URL } from '../utils/constants';
 import { useManageSelectedAppUrl } from '../hooks/useManageSelectedAppUrl';
 
 const childAppInfo = Object.freeze({
@@ -13,7 +13,7 @@ const childAppInfo = Object.freeze({
     logo: CadtLogo,
   },
   climateExplorer: {
-    link: CLIMATE_EXPLOER_SRC_URL,
+    link: CLIMATE_EXPLORER_SRC_URL,
     name: 'Climate Explorer',
     logo: ExplorerLogo,
   },

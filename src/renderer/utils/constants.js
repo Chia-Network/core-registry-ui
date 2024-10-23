@@ -1,22 +1,21 @@
 const LOCAL_STORAGE_KEYS = Object.freeze({
   CADT: {
-    API_URL: 'cadtRemoteServerAddress',
-    API_KEY: 'cadtRemoteServerApiKey',
+    API_URL: 'cadtApiHost',
+    API_KEY: 'cadtApiKey',
   },
   TOKENIZATION_ENGINE: {
-    API_URL: 'climateTokenizationEngineRemoteServerAddress',
-    API_KEY: 'climateTokenizationEngineRemoteServerApiKey',
+    API_URL: 'tokenizationApiHost',
+    API_KEY: 'tokenizationApiKey',
   },
   CLIMATE_EXPLORER: {
-    API_URL: 'climateExplorerRemoteServerAddress',
+    API_URL: 'explorerApiHost',
   },
-  API_SETTINGS_CONFIGURED: 'apiSettingsConfigured',
   LANGUAGE_CODE: 'selectedLanguageCode',
   SELECTED_APP_URL: 'selectedAppUrl',
 });
 
 const CADT_SRC_URL = 'apps/cadt/index.html';
-const CLIMATE_EXPLOER_SRC_URL = 'apps/climate_explorer/index.html';
+const CLIMATE_EXPLORER_SRC_URL = 'apps/climate_explorer/index.html';
 const TOKENIZATION_ENGINE_SRC_URL = 'apps/climate_tokenization_engine/index.html';
 
 const MESSAGES = Object.freeze({
@@ -35,7 +34,7 @@ export {
   LOCAL_STORAGE_KEYS,
   LANGUAGE_CODES,
   CADT_SRC_URL,
-  CLIMATE_EXPLOER_SRC_URL,
+  CLIMATE_EXPLORER_SRC_URL,
   TOKENIZATION_ENGINE_SRC_URL,
   MESSAGES,
 };

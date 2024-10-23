@@ -8,12 +8,21 @@ import {LANGUAGE_CODES, LOCAL_STORAGE_KEYS} from '../utils/constants';
  * - [1]: A function that sets the locale code in local storage.
  */
 const useManageLocale = () => {
-  const [languageCode, setHookStateLanguageCode] = useState(LANGUAGE_CODES.ENGLISH);
+  const [languageCode, setHookStateLanguageCode] = useState(
+    () => localStorage.getItem(LOCAL_STORAGE_KEYS.LANGUAGE_CODE) || LANGUAGE_CODES.ENGLISH,
+  );
 
   const setLocaleCode = useCallback(
     (languageCode) => {
       localStorage.setItem(LOCAL_STORAGE_KEYS.LANGUAGE_CODE, languageCode);
       setHookStateLanguageCode(languageCode);
+
+      window.dispatchEvent(
+        new StorageEvent('storage', {
+          key: LOCAL_STORAGE_KEYS.LANGUAGE_CODE,
+          newLanguageCode: languageCode,
+        }),
+      );
     },
     [languageCode],
   );
@@ -23,6 +32,18 @@ const useManageLocale = () => {
     if (savedLanguageCode && savedLanguageCode !== languageCode) {
       setHookStateLanguageCode(savedLanguageCode);
     }
+
+    const handleLanguageStorageChange = (event) => {
+      if (event.key === LOCAL_STORAGE_KEYS.LANGUAGE_CODE && event.newLanguageCode !== languageCode) {
+        setHookStateLanguageCode(event.newLanguageCode);
+      }
+    };
+
+    window.addEventListener('storage', handleLanguageStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleLanguageStorageChange);
+    };
   }, [languageCode]);
 
   return [languageCode, setLocaleCode];

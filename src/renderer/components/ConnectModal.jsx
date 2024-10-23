@@ -4,7 +4,7 @@ import { ConnectForm } from './ConnectForm';
 import { useManageConnectionSettings } from '../hooks/useManageConnectionSettings';
 
 const ConnectModal = ({ onClose }) => {
-  const [connectionValuesSet, validateConnectionValues] = useManageConnectionSettings();
+  const [connectionValuesSet] = useManageConnectionSettings();
   const [isProcessing, setIsProcessing] = useState(false);
   const formRef = useRef(null);
 
@@ -17,10 +17,7 @@ const ConnectModal = ({ onClose }) => {
   const onClickConnect = (event) => {
     setIsProcessing(true);
     if (formRef?.current?.onSubmit) {
-      const formValid = formRef.current.onSubmit(event);
-      if (formValid) {
-        console.log(validateConnectionValues());
-      }
+      formRef.current.onSubmit(event);
     }
     setIsProcessing(false);
   };
