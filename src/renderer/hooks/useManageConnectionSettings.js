@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { LOCAL_STORAGE_KEYS } from '../utils/constants';
 
 const keys = [
-  LOCAL_STORAGE_KEYS.API_SETTINGS_CONFIGURED,
   LOCAL_STORAGE_KEYS.CADT.API_URL,
   LOCAL_STORAGE_KEYS.CADT.API_KEY,
   LOCAL_STORAGE_KEYS.TOKENIZATION_ENGINE.API_URL,
@@ -11,46 +10,103 @@ const keys = [
 ];
 
 /**
+ *
+ * @returns {{
+ *     cadtApiHost: string,
+ *     cadtApiKey: string,
+ *     tokenizationApiHost: string,
+ *     tokenizationApiKey: string,
+ *     explorerApiHost: string,
+ *   }|null}
+ */
+const validateAndGetLocalStorageConnectionSettings = () => {
+  const connectionSettingsFromLocalStorage = {};
+  for (const key of keys) {
+    const value = localStorage.getItem(key);
+    if (value) {
+      connectionSettingsFromLocalStorage[key] = value;
+    } else {
+      // If any key does not exist in local storage, remove all keys and return false
+      console.log('key', key, 'has value', value);
+      keys.forEach((key) => localStorage.removeItem(key));
+      return null;
+    }
+  }
+
+  return connectionSettingsFromLocalStorage;
+};
+
+/**
  * manages the connection settings in local storage
  * NOTE: this hook allows validating and clearing the values, {@link ConnectForm} is responsible for setting them
- * @returns {[boolean,(function(): (boolean)),(function(): (void))]}
- * - [0]: A boolean indicating whether the connection settings are saved to local storage or not.
- * - [1]: A function that validates the current connection settings and returns a boolean.
+ * @returns
+ * {[{
+ *     cadtApiHost: string,
+ *     cadtApiKey: string,
+ *     tokenizationApiHost: string,
+ *     tokenizationApiKey: string,
+ *     explorerApiHost: string,
+ *   },
+ *   (function(values: {
+ *     cadtApiHost: string,
+ *     cadtApiKey: string,
+ *     tokenizationApiHost: string,
+ *     tokenizationApiKey: string,
+ *     explorerApiHost: string,
+ *   }): (void)),
+ *   (function(): (void)),
+ * ]}
+ * - [0]: The current connection settings
+ * - [1]: A function that sets the connection settings in local storage.
  * - [2]: A function that clears the current connection settings in local storage.
  */
 const useManageConnectionSettings = () => {
-  const [connectionInfoInLocalStorage, setConnectionInfoInLocalStorage] = useState(false);
+  const [hookConnectionSettings, setHookConnectionSettings] = useState(() =>
+    validateAndGetLocalStorageConnectionSettings(),
+  );
 
-  const validateLocalStorageConnectionSettings = () => {
-    for (const key of keys) {
-      const value = localStorage.getItem(key);
-      if ((key !== LOCAL_STORAGE_KEYS.API_SETTINGS_CONFIGURED && value === null) || value === '') {
-        // If any key fails the check, remove all keys and return false
-        console.log('key', key, 'has value', value);
-        keys.forEach((key) => localStorage.removeItem(key));
-        setConnectionInfoInLocalStorage(false);
-        return false;
-      }
-    }
-    setConnectionInfoInLocalStorage(true);
-    return true;
+  /**
+   * @param values {{
+   *     cadtApiHost: string,
+   *     cadtApiKey: string,
+   *     tokenizationApiHost: string,
+   *     tokenizationApiKey: string,
+   *     explorerApiHost: string,
+   *   }}
+   */
+  const setConnectionSettings = (values) => {
+    localStorage.setItem(LOCAL_STORAGE_KEYS.CADT.API_URL, values.cadtApiHost);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.CADT.API_KEY, values.cadtApiKey);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.CLIMATE_EXPLORER.API_URL, values.explorerApiHost);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.TOKENIZATION_ENGINE.API_URL, values.tokenizationApiHost);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.TOKENIZATION_ENGINE.API_KEY, values.tokenizationApiKey);
+
+    setHookConnectionSettings(validateAndGetLocalStorageConnectionSettings());
   };
 
   const clearConnectionSettings = () => {
     keys.forEach((localStorageKey) => localStorage.removeItem(localStorageKey));
-    validateLocalStorageConnectionSettings();
+    setHookConnectionSettings(validateAndGetLocalStorageConnectionSettings());
   };
 
   useEffect(() => {
-    if (validateLocalStorageConnectionSettings()) {
-      setConnectionInfoInLocalStorage(true);
-      localStorage.setItem(LOCAL_STORAGE_KEYS.API_SETTINGS_CONFIGURED, 'true');
-    } else {
-      setConnectionInfoInLocalStorage(false);
-    }
-  }, []);
+    window.dispatchEvent(new CustomEvent('connectionSettingsChanged'));
 
-  return [connectionInfoInLocalStorage, validateLocalStorageConnectionSettings, clearConnectionSettings];
+    const handleConnectionStorageChange = () => {
+      const localStorageConnectionSettings = validateAndGetLocalStorageConnectionSettings();
+      if (JSON.stringify(localStorageConnectionSettings) !== JSON.stringify(hookConnectionSettings)) {
+        setHookConnectionSettings(localStorageConnectionSettings);
+      }
+    };
+
+    window.addEventListener('connectionSettingsChanged', handleConnectionStorageChange);
+
+    return () => {
+      window.removeEventListener('connectionSettingsChanged', handleConnectionStorageChange);
+    };
+  }, [hookConnectionSettings]);
+
+  return [hookConnectionSettings, setConnectionSettings, clearConnectionSettings];
 };
 
 export { useManageConnectionSettings };

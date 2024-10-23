@@ -20,7 +20,7 @@ const useManageLocale = () => {
       window.dispatchEvent(
         new StorageEvent('storage', {
           key: LOCAL_STORAGE_KEYS.LANGUAGE_CODE,
-          newLanguageCode: languageCode,
+          newValue: languageCode,
         }),
       );
     },
@@ -34,8 +34,8 @@ const useManageLocale = () => {
     }
 
     const handleLanguageStorageChange = (event) => {
-      if (event.key === LOCAL_STORAGE_KEYS.LANGUAGE_CODE && event.newLanguageCode !== languageCode) {
-        setHookStateLanguageCode(event.newLanguageCode);
+      if (event.key === LOCAL_STORAGE_KEYS.LANGUAGE_CODE && event.newValue !== languageCode) {
+        setHookStateLanguageCode(event.newValue);
       }
     };
 

@@ -19,7 +19,7 @@ const useManageSelectedAppUrl = () => {
     window.dispatchEvent(
       new StorageEvent('storage', {
         key: LOCAL_STORAGE_KEYS.SELECTED_APP_URL,
-        newChildAppUrl: childAppUrl,
+        newValue: childAppUrl,
       }),
     );
   }, []);
@@ -31,8 +31,8 @@ const useManageSelectedAppUrl = () => {
     }
 
     const handleSelectedAppStorageChange = (event) => {
-      if (event.key === LOCAL_STORAGE_KEYS.SELECTED_APP_URL && event.newChildAppUrl !== childAppSourceUrl) {
-        setHookStatechildAppSourceUrl(event.newChildAppUrl);
+      if (event.key === LOCAL_STORAGE_KEYS.SELECTED_APP_URL && event.newValue !== childAppSourceUrl) {
+        setHookStatechildAppSourceUrl(event.newValue);
       }
     };
 

@@ -10,24 +10,24 @@ const childAppInfo = Object.freeze({
   cadt: {
     link: CADT_SRC_URL,
     name: 'CAD Trust',
-    logo: CadtLogo,
+    logo: <CadtLogo />,
   },
   climateExplorer: {
     link: CLIMATE_EXPLORER_SRC_URL,
     name: 'Climate Explorer',
-    logo: ExplorerLogo,
+    logo: <ExplorerLogo />,
   },
   climateTokenization: {
     link: TOKENIZATION_ENGINE_SRC_URL,
     name: 'Climate Tokenization Engine',
-    logo: TokenizationLogo,
+    logo: <TokenizationLogo />,
   },
 });
 
 const AppSelectorDropDown = () => {
   const [activeAppUrl, setActiveAppUrl] = useManageSelectedAppUrl();
   const activeApp =
-    Object.keys(childAppInfo).filter((childAppKey) => childAppKey[childAppKey]?.link === activeAppUrl) ||
+    Object.keys(childAppInfo).find((childAppKey) => childAppKey[childAppKey]?.link === activeAppUrl) ||
     childAppInfo.cadt;
 
   return (
