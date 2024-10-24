@@ -2,21 +2,24 @@ const LOCAL_STORAGE_KEYS = Object.freeze({
   CADT: {
     API_URL: 'cadtApiHost',
     API_KEY: 'cadtApiKey',
+    BASENAME: 'cadtChildUiBasename',
   },
   TOKENIZATION_ENGINE: {
     API_URL: 'tokenizationApiHost',
     API_KEY: 'tokenizationApiKey',
+    BASENAME: 'tokenizationChildUiBasename',
   },
   CLIMATE_EXPLORER: {
     API_URL: 'explorerApiHost',
+    BASENAME: 'explorerChildUiBasename',
   },
   LANGUAGE_CODE: 'selectedLanguageCode',
   SELECTED_APP_URL: 'selectedAppUrl',
 });
 
-const CADT_SRC_URL = 'apps/cadt/index.html';
-const CLIMATE_EXPLORER_SRC_URL = 'apps/climate_explorer/index.html';
-const TOKENIZATION_ENGINE_SRC_URL = 'apps/climate_tokenization_engine/index.html';
+const CADT_SRC_LOCATION = 'apps/cadt/index.html';
+const CLIMATE_EXPLORER_SRC_LOCATION = 'apps/climate_explorer/index.html';
+const TOKENIZATION_ENGINE_SRC_LOCATION = 'apps/climate_tokenization_engine/index.html';
 
 const MESSAGES = Object.freeze({
   CHILD_APP_LOADED: 'childAppLoaded',
@@ -33,8 +36,8 @@ const LANGUAGE_CODES = Object.freeze({
 export {
   LOCAL_STORAGE_KEYS,
   LANGUAGE_CODES,
-  CADT_SRC_URL,
-  CLIMATE_EXPLORER_SRC_URL,
-  TOKENIZATION_ENGINE_SRC_URL,
+  CADT_SRC_LOCATION,
+  CLIMATE_EXPLORER_SRC_LOCATION,
+  TOKENIZATION_ENGINE_SRC_LOCATION,
   MESSAGES,
 };

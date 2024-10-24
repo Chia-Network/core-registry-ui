@@ -9,7 +9,7 @@ const CoreRegistryHeader = () => {
   const [connectionSettingsSaved] = useManageConnectionSettings();
 
   return (
-    <header className="flex justify-between p-4 bg-[#6e7d7f]">
+    <header className="App-header">
       {connectionSettingsSaved ? <AppSelectorDropDown /> : <div></div>}
       <HeaderBrandingLogo />
       <div className="flex gap-8 items-center">

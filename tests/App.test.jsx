@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import App from '../renderer/utils/iframe-utils';
+import App from '../src/renderer/utils/iframe-utils';
 
 test('renders counter button', () => {
   render(<App />);
