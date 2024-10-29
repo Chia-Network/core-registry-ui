@@ -15,6 +15,7 @@ const LOCAL_STORAGE_KEYS = Object.freeze({
   },
   LANGUAGE_CODE: 'selectedLanguageCode',
   SELECTED_APP_URL: 'selectedAppUrl',
+  THEME_COLORS: 'themeColors',
 });
 
 const CADT_SRC_LOCATION = 'apps/cadt/index.html';

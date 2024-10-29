@@ -13,6 +13,7 @@ import {
 } from './utils/constants';
 import { sendMessageToIframe } from './utils/iframe-utils';
 import { useFetchHostFile } from './hooks/useFetchHostFile';
+import { ComponentCenteredSpinner } from './components/ComponentCenteredSpinner';
 
 const App = () => {
   const [connectionSettings] = useManageConnectionSettings();
@@ -25,14 +26,14 @@ const App = () => {
   const climateTokenizationRef = useRef(null);
 
   // these tell the child apps that they're a core-registry child and their source basename
-  localStorage.setItem(LOCAL_STORAGE_KEYS.CADT.BASENAME, CADT_SRC_LOCATION.replace('/index.html', ''));
+  localStorage.setItem(LOCAL_STORAGE_KEYS.CADT.BASENAME, CADT_SRC_LOCATION.replace('index.html', ''));
   localStorage.setItem(
     LOCAL_STORAGE_KEYS.TOKENIZATION_ENGINE.BASENAME,
-    TOKENIZATION_ENGINE_SRC_LOCATION.replace('/index.html', ''),
+    TOKENIZATION_ENGINE_SRC_LOCATION.replace('index.html', ''),
   );
   localStorage.setItem(
     LOCAL_STORAGE_KEYS.CLIMATE_EXPLORER.BASENAME,
-    CLIMATE_EXPLORER_SRC_LOCATION.replace('/index.html', ''),
+    CLIMATE_EXPLORER_SRC_LOCATION.replace('index.html', ''),
   );
 
   console.log('app.jsx connection settings set', connectionSettings);
@@ -114,62 +115,67 @@ const App = () => {
     }, [cadtRef.current, climateExplorerRef.current, climateTokenizationRef.current]);
    */
 
+  if (!connectionSettings) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <div className="flex flex-col items-center justify-center space-y-4">
+          <h1 className="text-2xl font-semibold text-gray-700">Welcome to Core Registry</h1>
+          <p className="text-gray-600">Connect to get started</p>
+        </div>
+      </div>
+    );
+  }
+
+  // placing this return below the above if is purposeful. allow settings to load while the user enters connection info
+  if (configLoading || customColorsLoading) {
+    return <ComponentCenteredSpinner />;
+  }
+
   return (
     <div className="App">
       <CoreRegistryHeader />
-      {connectionSettings ? (
-        <>
-          <div
-            className="app-window"
-            style={{
-              display: selectedAppUrl === CADT_SRC_LOCATION ? 'block' : 'none',
-            }}
-          >
-            <iframe
-              ref={cadtRef}
-              src={CADT_SRC_LOCATION}
-              onLoadedData={() => handleIframeLoad(cadtRef.current)}
-              width="100%"
-              height="100%"
-            ></iframe>
-          </div>
-          <div
-            className="app-window"
-            style={{
-              display: selectedAppUrl === TOKENIZATION_ENGINE_SRC_LOCATION ? 'block' : 'none',
-            }}
-          >
-            <iframe
-              ref={climateTokenizationRef}
-              src={TOKENIZATION_ENGINE_SRC_LOCATION}
-              onLoadedData={() => handleIframeLoad(climateTokenizationRef.current)}
-              width="100%"
-              height="100%"
-            ></iframe>
-          </div>
-          <div
-            className="app-window"
-            style={{
-              display: selectedAppUrl === CLIMATE_EXPLORER_SRC_LOCATION ? 'block' : 'none',
-            }}
-          >
-            <iframe
-              ref={climateExplorerRef}
-              src={'apps/climate_explorer/index.html'}
-              onLoadedData={() => handleIframeLoad(climateExplorerRef.current)}
-              width="100%"
-              height="100%"
-            ></iframe>
-          </div>
-        </>
-      ) : (
-        <div className="flex flex-col items-center justify-center h-full">
-          <div className="flex flex-col items-center justify-center space-y-4">
-            <h1 className="text-2xl font-semibold text-gray-700">Welcome to Core Registry</h1>
-            <p className="text-gray-600">Connect to get started</p>
-          </div>
-        </div>
-      )}
+      <div
+        className="app-window"
+        style={{
+          display: selectedAppUrl === CADT_SRC_LOCATION ? 'block' : 'none',
+        }}
+      >
+        <iframe
+          ref={cadtRef}
+          src={CADT_SRC_LOCATION}
+          onLoadedData={() => handleIframeLoad(cadtRef.current)}
+          width="100%"
+          height="100%"
+        ></iframe>
+      </div>
+      <div
+        className="app-window"
+        style={{
+          display: selectedAppUrl === TOKENIZATION_ENGINE_SRC_LOCATION ? 'block' : 'none',
+        }}
+      >
+        <iframe
+          ref={climateTokenizationRef}
+          src={TOKENIZATION_ENGINE_SRC_LOCATION}
+          onLoadedData={() => handleIframeLoad(climateTokenizationRef.current)}
+          width="100%"
+          height="100%"
+        ></iframe>
+      </div>
+      <div
+        className="app-window"
+        style={{
+          display: selectedAppUrl === CLIMATE_EXPLORER_SRC_LOCATION ? 'block' : 'none',
+        }}
+      >
+        <iframe
+          ref={climateExplorerRef}
+          src={'apps/climate_explorer/index.html'}
+          onLoadedData={() => handleIframeLoad(climateExplorerRef.current)}
+          width="100%"
+          height="100%"
+        ></iframe>
+      </div>
     </div>
   );
 };
