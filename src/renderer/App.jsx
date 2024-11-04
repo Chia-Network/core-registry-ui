@@ -19,7 +19,9 @@ const App = () => {
   const [connectionSettings] = useManageConnectionSettings();
   const [selectedAppUrl] = useManageSelectedAppUrl();
   const [selectedLocale] = useManageLocale();
-  const [configLoading, config] = useFetchHostFile({ hostFilePath: '/config.json' });
+  // TODO: USE THE FETCHED CONFIG FILE TO AUTO-SET CONNECTION SETTINGS IN LOCAL STORAGE
+  // TODO: ADJUST CONNECT MODAL BEHAVIOR TO APPEAR WITH PRE-FILLED CONNECTION SETTINGS IF API KEY NOT SET OR UNABLE TO CONNECT
+  const [configLoading] = useFetchHostFile({ hostFilePath: '/config.json' });
   const [customColorsLoading, customColors] = useFetchHostFile({ hostFilePath: '/colors.json' });
   const cadtRef = useRef(null);
   const climateExplorerRef = useRef(null);
@@ -36,146 +38,143 @@ const App = () => {
     CLIMATE_EXPLORER_SRC_LOCATION.replace('index.html', ''),
   );
 
-  console.log('app.jsx connection settings set', connectionSettings);
-  console.log('app.jsx selected language', selectedLocale);
-  console.log('app.jsx selected appUrl', selectedAppUrl);
-
-  const handleIframeLoad = (iframe) => {
-    console.log('######## iframe loaded');
-
+  const manageIframeMessages = (iframe) => {
     if (!iframe) {
       return;
     }
 
     const childAppMessageListener = (event) => {
-      if (event.origin === new URL(iframe.src).origin && event.data === MESSAGES.CHILD_APP_LOADED) {
-        sendCustomColorsToIframes();
-        sendConfigToIframes();
-        sendSelectedLanguageToIframes();
+      if (event.origin === new URL(iframe.src).origin) {
+        const message = event.data;
+
+        switch (message) {
+          case MESSAGES.CHILD_APP_LOADED:
+            console.log(MESSAGES.CHILD_APP_LOADED);
+            break;
+
+          case MESSAGES.RELOAD:
+            window.location.reload();
+            break;
+
+          default:
+            break;
+        }
       }
     };
 
-    // TODO: address eventListener removal, if needed
     window.addEventListener('message', childAppMessageListener);
+
+    return () => window.removeEventListener('message', childAppMessageListener);
   };
 
-  const sendCustomColorsToIframes = () => {
-    if (customColors && !customColorsLoading) {
-      const message = { customColors };
-      [cadtRef, climateExplorerRef, climateTokenizationRef].forEach((ref) => {
-        if (ref.current) {
-          sendMessageToIframe(ref.current, message);
-        }
-      });
+  useEffect(() => {
+    if (cadtRef.current) {
+      manageIframeMessages(cadtRef.current);
     }
-  };
+  }, [cadtRef.current]);
 
-  const sendConfigToIframes = () => {
-    if (config && !configLoading) {
-      const message = { config };
-      [cadtRef, climateExplorerRef, climateTokenizationRef].forEach((ref) => {
-        if (ref.current) {
-          sendMessageToIframe(ref.current, message);
-        }
-      });
+  useEffect(() => {
+    if (climateTokenizationRef.current) {
+      manageIframeMessages(climateTokenizationRef.current);
     }
-  };
+  }, [climateTokenizationRef.current]);
 
-  const sendSelectedLanguageToIframes = () => {
+  useEffect(() => {
+    if (climateExplorerRef.current) {
+      manageIframeMessages(climateExplorerRef.current);
+    }
+  }, [climateExplorerRef.current]);
+
+  // notify child apps of the selected language
+  useEffect(() => {
     const message = { selectedLocale };
     [cadtRef, climateExplorerRef, climateTokenizationRef].forEach((ref) => {
       if (ref.current) {
         sendMessageToIframe(ref.current, message);
       }
     });
-  };
-
-  // send color settings to child apps
-  useEffect(() => {
-    sendCustomColorsToIframes();
-  }, [customColors, customColorsLoading]);
-
-  // send color settings to child apps
-  useEffect(() => {
-    sendConfigToIframes();
-  }, [config, configLoading]);
-
-  // notify child apps of the selected language
-  useEffect(() => {
-    sendSelectedLanguageToIframes();
   }, [selectedLocale]);
 
-  /* todo: remove
-   useEffect(() => {
-      [cadtRef, climateExplorerRef, climateTokenizationRef].forEach((ref) => {
-        if (ref.current) {
-          handleIframeLoad(ref.current);
-        }
-      });
-    }, [cadtRef.current, climateExplorerRef.current, climateTokenizationRef.current]);
-   */
+  // make custom colors available to child apps
+  useEffect(() => {
+    if (customColors && !customColorsLoading) {
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEYS.THEME_COLORS, JSON.stringify(customColors));
+      } catch {
+        console.error('failed to parse colors.json');
+      }
+    }
+  }, [customColors, customColorsLoading]);
 
-  if (!connectionSettings) {
-    return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <h1 className="text-2xl font-semibold text-gray-700">Welcome to Core Registry</h1>
-          <p className="text-gray-600">Connect to get started</p>
+  const AppBody = () => {
+    if (!connectionSettings) {
+      return (
+        <div className="flex flex-col items-center justify-center h-full">
+          <div className="flex flex-col items-center justify-center space-y-4">
+            <h1 className="text-2xl font-semibold text-gray-700">Welcome to Core Registry</h1>
+            <p className="text-gray-600">Connect to get started</p>
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
-  // placing this return below the above if is purposeful. allow settings to load while the user enters connection info
-  if (configLoading || customColorsLoading) {
-    return <ComponentCenteredSpinner />;
-  }
+    // placing this return below the above if is purposeful. allow settings to load while the user enters connection info
+    if (configLoading || customColorsLoading) {
+      return <ComponentCenteredSpinner />;
+    }
+
+    return (
+      <>
+        <div
+          className="app-window"
+          style={{
+            display: selectedAppUrl === CADT_SRC_LOCATION ? 'block' : 'none',
+          }}
+        >
+          <iframe
+            ref={cadtRef}
+            src={CADT_SRC_LOCATION}
+            onLoad={() => manageIframeMessages(cadtRef.current)}
+            width="100%"
+            height="100%"
+          ></iframe>
+        </div>
+        <div
+          className="app-window"
+          style={{
+            display: selectedAppUrl === TOKENIZATION_ENGINE_SRC_LOCATION ? 'block' : 'none',
+          }}
+        >
+          <iframe
+            ref={climateTokenizationRef}
+            src={TOKENIZATION_ENGINE_SRC_LOCATION}
+            onLoad={() => manageIframeMessages(climateTokenizationRef.current)}
+            width="100%"
+            height="100%"
+          ></iframe>
+        </div>
+        <div
+          className="app-window"
+          style={{
+            display: selectedAppUrl === CLIMATE_EXPLORER_SRC_LOCATION ? 'block' : 'none',
+          }}
+        >
+          <iframe
+            ref={climateExplorerRef}
+            src={CLIMATE_EXPLORER_SRC_LOCATION}
+            onLoad={() => manageIframeMessages(climateExplorerRef.current)}
+            width="100%"
+            height="100%"
+          ></iframe>
+        </div>
+      </>
+    );
+  };
 
   return (
     <div className="App">
       <CoreRegistryHeader />
-      <div
-        className="app-window"
-        style={{
-          display: selectedAppUrl === CADT_SRC_LOCATION ? 'block' : 'none',
-        }}
-      >
-        <iframe
-          ref={cadtRef}
-          src={CADT_SRC_LOCATION}
-          onLoadedData={() => handleIframeLoad(cadtRef.current)}
-          width="100%"
-          height="100%"
-        ></iframe>
-      </div>
-      <div
-        className="app-window"
-        style={{
-          display: selectedAppUrl === TOKENIZATION_ENGINE_SRC_LOCATION ? 'block' : 'none',
-        }}
-      >
-        <iframe
-          ref={climateTokenizationRef}
-          src={TOKENIZATION_ENGINE_SRC_LOCATION}
-          onLoadedData={() => handleIframeLoad(climateTokenizationRef.current)}
-          width="100%"
-          height="100%"
-        ></iframe>
-      </div>
-      <div
-        className="app-window"
-        style={{
-          display: selectedAppUrl === CLIMATE_EXPLORER_SRC_LOCATION ? 'block' : 'none',
-        }}
-      >
-        <iframe
-          ref={climateExplorerRef}
-          src={'apps/climate_explorer/index.html'}
-          onLoadedData={() => handleIframeLoad(climateExplorerRef.current)}
-          width="100%"
-          height="100%"
-        ></iframe>
-      </div>
+      {AppBody()}
     </div>
   );
 };

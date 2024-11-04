@@ -24,6 +24,7 @@ const TOKENIZATION_ENGINE_SRC_LOCATION = 'apps/climate_tokenization_engine/index
 
 const MESSAGES = Object.freeze({
   CHILD_APP_LOADED: 'childAppLoaded',
+  RELOAD: 'reload',
 });
 
 const LANGUAGE_CODES = Object.freeze({

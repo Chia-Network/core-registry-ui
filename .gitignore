@@ -3,7 +3,7 @@ node_modules
 dist
 dist-ssr
 *.local
-apps
+public/apps
 build
 theme.json
 ExplorerCustom.svg
