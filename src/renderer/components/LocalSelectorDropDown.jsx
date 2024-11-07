@@ -7,7 +7,7 @@ const LocaleSelectorDropDown = () => {
   const [selectedLanguageCode, setSelectedLanguageCode] = useManageLocale();
 
   return (
-    <Dropdown label={selectedLanguageCode}>
+    <Dropdown color="gray" label={selectedLanguageCode}>
       {Object.keys(LANGUAGE_CODES).map((languageKey) => (
         <Dropdown.Item
           key={LANGUAGE_CODES[languageKey]}

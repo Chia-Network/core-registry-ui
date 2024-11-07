@@ -7,8 +7,8 @@ const LogoContainer = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  color: white;
+  height: 75%;
+  color: black;
   font-family: Ariel, Helvetica, sans-serif;
   gap: 10px;
   font-size: 1rem;
@@ -47,7 +47,7 @@ const ExplorerLogo = ({ width = 50, height = 50 }) => {
           {svgContent ? (
             <img src={svgDataUrl} width={width} height={height} alt="Explorer Logo" />
           ) : (
-            <img src={logo} width={height} height={width} alt="Explorer Logo" />
+            <img src={logo} width={width} height={height} alt="Explorer Logo" />
           )}
           Explorer
         </>
