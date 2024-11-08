@@ -1,12 +1,23 @@
 import { Dropdown } from 'flowbite-react';
+import { DashboardLogo } from './dynamic-brandable-logos/DashboardLogo';
 import { CadtLogo } from './dynamic-brandable-logos/CadtLogo';
 import { TokenizationLogo } from './dynamic-brandable-logos/TokenizationLogo';
 import { ExplorerLogo } from './dynamic-brandable-logos/ExplorerLogo';
 import React from 'react';
-import { CADT_SRC_LOCATION, CLIMATE_EXPLORER_SRC_LOCATION, TOKENIZATION_ENGINE_SRC_LOCATION } from '../utils/constants';
+import {
+  CADT_SRC_LOCATION,
+  CLIMATE_EXPLORER_SRC_LOCATION,
+  DASHBOARD_SRC_LOCATION,
+  TOKENIZATION_ENGINE_SRC_LOCATION,
+} from '../utils/constants';
 import { useManageSelectedAppUrl } from '../hooks/useManageSelectedAppUrl';
 
 const childAppInfo = Object.freeze({
+  dashboard: {
+    link: DASHBOARD_SRC_LOCATION,
+    name: 'Climate Dashboard',
+    logo: <DashboardLogo width={35} />,
+  },
   cadt: {
     link: CADT_SRC_LOCATION,
     name: 'CAD Trust',
@@ -40,6 +51,9 @@ const AppSelectorDropDown = () => {
 
   return (
     <Dropdown color="gray" theme={dropDownTheme} label={activeApp.logo} size="sm" floatingArrow={true}>
+      <Dropdown.Item onClick={() => setActiveAppUrl(childAppInfo.dashboard.link)}>
+        <DashboardLogo />
+      </Dropdown.Item>
       <Dropdown.Item onClick={() => setActiveAppUrl(childAppInfo.cadt.link)}>
         <CadtLogo />
       </Dropdown.Item>

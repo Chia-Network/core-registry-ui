@@ -7,6 +7,7 @@ import { useManageLocale } from './hooks/useManageLocale';
 import {
   CADT_SRC_LOCATION,
   CLIMATE_EXPLORER_SRC_LOCATION,
+  DASHBOARD_SRC_LOCATION,
   LOCAL_STORAGE_KEYS,
   MESSAGES,
   TOKENIZATION_ENGINE_SRC_LOCATION,
@@ -16,6 +17,7 @@ import { useFetchHostFile } from './hooks/useFetchHostFile';
 import { ComponentCenteredSpinner } from './components/ComponentCenteredSpinner';
 
 const App = () => {
+  console.log('!!!! parent app.jsx render');
   const [connectionSettings] = useManageConnectionSettings();
   const [selectedAppUrl] = useManageSelectedAppUrl();
   const [selectedLocale] = useManageLocale();
@@ -26,6 +28,7 @@ const App = () => {
   const cadtRef = useRef(null);
   const climateExplorerRef = useRef(null);
   const climateTokenizationRef = useRef(null);
+  const climateDashboardRef = useRef(null);
 
   // these tell the child apps that they're a core-registry child and their source basename
   localStorage.setItem(LOCAL_STORAGE_KEYS.CADT.BASENAME, CADT_SRC_LOCATION.replace('index.html', ''));
@@ -125,6 +128,20 @@ const App = () => {
 
     return (
       <>
+        <div
+          className="app-window"
+          style={{
+            display: selectedAppUrl === DASHBOARD_SRC_LOCATION ? 'block' : 'none',
+          }}
+        >
+          <iframe
+            ref={climateDashboardRef}
+            src={DASHBOARD_SRC_LOCATION}
+            onLoad={() => manageIframeMessages(climateDashboardRef.current)}
+            width="100%"
+            height="100%"
+          ></iframe>
+        </div>
         <div
           className="app-window"
           style={{
