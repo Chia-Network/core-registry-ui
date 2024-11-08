@@ -21,6 +21,7 @@ const LOCAL_STORAGE_KEYS = Object.freeze({
 const CADT_SRC_LOCATION = 'apps/cadt/index.html';
 const CLIMATE_EXPLORER_SRC_LOCATION = 'apps/climate_explorer/index.html';
 const TOKENIZATION_ENGINE_SRC_LOCATION = 'apps/climate_tokenization_engine/index.html';
+const DASHBOARD_SRC_LOCATION = 'apps/climate_dashboard/index.html';
 
 const MESSAGES = Object.freeze({
   CHILD_APP_LOADED: 'childAppLoaded',
@@ -39,6 +40,7 @@ export {
   LOCAL_STORAGE_KEYS,
   LANGUAGE_CODES,
   CADT_SRC_LOCATION,
+  DASHBOARD_SRC_LOCATION,
   CLIMATE_EXPLORER_SRC_LOCATION,
   TOKENIZATION_ENGINE_SRC_LOCATION,
   MESSAGES,
