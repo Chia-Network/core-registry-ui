@@ -13,6 +13,7 @@ const LOCAL_STORAGE_KEYS = Object.freeze({
     API_URL: 'explorerApiHost',
     BASENAME: 'explorerChildUiBasename',
   },
+  API_HOSTS_FROM_CONFIG: 'apiHostsFromConfigFile',
   LANGUAGE_CODE: 'selectedLanguageCode',
   SELECTED_APP_URL: 'selectedAppUrl',
   THEME_COLORS: 'themeColors',

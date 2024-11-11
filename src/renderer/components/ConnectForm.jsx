@@ -1,11 +1,29 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { useManageConnectionSettings } from '../hooks/useManageConnectionSettings';
+import { getConfigApiHosts } from '../utils/loaded-config-utils';
 
 const ConnectForm = forwardRef(({}, ref) => {
+  const configApiHosts = getConfigApiHosts();
   const [, setConnectionSettings] = useManageConnectionSettings();
 
+  const [formValues, setFormValues] = useState({
+    cadtRegistryHost: configApiHosts?.cadtApiHost ?? undefined,
+    cadtRegistryApiKey: undefined,
+    climateTokenizationEngineHost: configApiHosts?.tokenizationApiHost ?? undefined,
+    climateTokenizationEngineApiKey: undefined,
+    climateExplorerHost: configApiHosts?.explorerApiHost ?? undefined,
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
   const onSubmit = (event) => {
-    if (event) event.preventDefault(); // Check if 'event' exists in case it's called from parent without an event
+    if (event) event.preventDefault();
 
     const form = document.getElementById('connectForm');
     const formData = new FormData(form);
@@ -58,7 +76,7 @@ const ConnectForm = forwardRef(({}, ref) => {
             : 'API key cannot be empty.';
         formValid = false;
       } else {
-        errorElement.textContent = ''; // Clear any previous error message
+        errorElement.textContent = '';
       }
     });
 
@@ -77,7 +95,6 @@ const ConnectForm = forwardRef(({}, ref) => {
     return true;
   };
 
-  // Expose handleSubmit to the parent through the ref
   useImperativeHandle(ref, () => ({
     onSubmit,
   }));
@@ -94,6 +111,8 @@ const ConnectForm = forwardRef(({}, ref) => {
             <input
               type="text"
               name="cadtRegistryHost"
+              value={formValues.cadtRegistryHost}
+              onChange={handleInputChange}
               required
               pattern="https?://.+(:\d{1,5})?"
               className="w-full p-2 border rounded shadow-sm"
@@ -108,6 +127,8 @@ const ConnectForm = forwardRef(({}, ref) => {
             <input
               type="text"
               name="cadtRegistryApiKey"
+              value={formValues.cadtRegistryApiKey}
+              onChange={handleInputChange}
               required
               className="w-full p-2 border rounded shadow-sm"
               placeholder="Enter CADT Registry API Key"
@@ -125,6 +146,8 @@ const ConnectForm = forwardRef(({}, ref) => {
             <input
               type="text"
               name="climateTokenizationEngineHost"
+              value={formValues.climateTokenizationEngineHost}
+              onChange={handleInputChange}
               required
               pattern="https?://.+(:\d{1,5})?"
               className="w-full p-2 border rounded shadow-sm"
@@ -139,6 +162,8 @@ const ConnectForm = forwardRef(({}, ref) => {
             <input
               type="text"
               name="climateTokenizationEngineApiKey"
+              value={formValues.climateTokenizationEngineApiKey}
+              onChange={handleInputChange}
               required
               className="w-full p-2 border rounded shadow-sm"
               placeholder="Enter Climate Tokenization Engine API Key"
@@ -156,6 +181,8 @@ const ConnectForm = forwardRef(({}, ref) => {
             <input
               type="text"
               name="climateExplorerHost"
+              value={formValues.climateExplorerHost}
+              onChange={handleInputChange}
               required
               pattern="https?://.+(:\d{1,5})?"
               className="w-full p-2 border rounded shadow-sm"

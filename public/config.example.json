@@ -1,3 +1,5 @@
 {
-  "apiHost": "http://foobar.com"
+  "cadtApiHost": "http://foobar.com",
+  "tokenizationApiHost": "http://fuzbaz.org",
+  "explorerApiHost": "http://fazbuz.net"
 }
