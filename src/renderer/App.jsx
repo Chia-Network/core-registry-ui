@@ -70,6 +70,8 @@ const App = () => {
       } catch {
         console.error('failed to parse colors.json');
       }
+    } else if (!customColors && !customColorsLoading) {
+      localStorage.removeItem(LOCAL_STORAGE_KEYS.THEME_COLORS);
     }
   }, [customColors, customColorsLoading]);
 
