@@ -27,7 +27,6 @@ const validateAndGetLocalStorageConnectionSettings = () => {
       connectionSettingsFromLocalStorage[key] = value;
     } else {
       // If any key does not exist in local storage, remove all keys and return false
-      console.log('key', key, 'has value', value);
       keys.forEach((key) => localStorage.removeItem(key));
       return null;
     }
