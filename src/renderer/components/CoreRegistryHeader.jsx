@@ -1,4 +1,4 @@
-import { HeaderBrandingLogo } from './dynamic-brandable-logos/HeaderBrandingLogo';
+import { HeaderBrandingLogo } from './brandable-logos/HeaderBrandingLogo';
 import { LocaleSelectorDropDown } from './LocalSelectorDropDown';
 import React from 'react';
 import { useManageConnectionSettings } from '../hooks/useManageConnectionSettings';

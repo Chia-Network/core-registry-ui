@@ -7,12 +7,49 @@ import { useFetchHostFile } from './hooks/useFetchHostFile';
 import { ComponentCenteredSpinner } from './components/ComponentCenteredSpinner';
 import { ChildAppManager } from './components/ChildAppManager';
 import { clearConfigApiHosts, setConfigApiHosts } from './utils/loaded-config-utils';
+import { useFetchSvgContent } from './hooks/useFetchSvgImage';
 
 const App = () => {
   const [connectionSettings] = useManageConnectionSettings();
   const [configLoading, config] = useFetchHostFile({ hostFilePath: '/config.json' });
   const [customColorsLoading, customColors] = useFetchHostFile({ hostFilePath: '/colors.json' });
+  const [dashboardCustomSvgLoading, dashboardCustomSvg] = useFetchSvgContent({ hostFilePath: '/DashboardCustom.svg' });
+  const [registryCustomSvgLoading, registryCustomSvg] = useFetchSvgContent({ hostFilePath: '/RegistryCustom.svg' });
+  const [tokenizationCustomSvgLoading, tokenizationCustomSvg] = useFetchSvgContent({
+    hostFilePath: '/TokenizationCustom.svg',
+  });
+  const [explorerCustomSvgLoading, explorerCustomSvg] = useFetchSvgContent({ hostFilePath: '/ExplorerCustom.svg' });
+  const [headerBrandingCustomSvgLoading, headerBrandingCustomSvg] = useFetchSvgContent({
+    hostFilePath: '/HeaderBrandingCustom.svg',
+  });
+  const [resourcesResolved, setResourcesResolved] = useState(false);
   const [configResolved, setConfigResolved] = useState(false);
+
+  // save custom svg urls to local storage app-wide access
+  useEffect(() => {
+    const fetchingResources =
+      dashboardCustomSvgLoading ||
+      registryCustomSvgLoading ||
+      tokenizationCustomSvgLoading ||
+      explorerCustomSvgLoading ||
+      headerBrandingCustomSvgLoading;
+
+    if (!fetchingResources) {
+      localStorage.setItem(LOCAL_STORAGE_KEYS.RESOURCES.REGISTRY_CUSTOM_SVG_URL, registryCustomSvg);
+      localStorage.setItem(LOCAL_STORAGE_KEYS.RESOURCES.TOKENIZATION_CUSTOM_SVG_URL, tokenizationCustomSvg);
+      localStorage.setItem(LOCAL_STORAGE_KEYS.RESOURCES.EXPLORER_CUSTOM_SVG_URL, explorerCustomSvg);
+      localStorage.setItem(LOCAL_STORAGE_KEYS.RESOURCES.DASHBOARD_CUSTOM_SVG_URL, dashboardCustomSvg);
+      localStorage.setItem(LOCAL_STORAGE_KEYS.RESOURCES.HEADER_BRANDING_CUSTOM_SVG_URL, headerBrandingCustomSvg);
+
+      setResourcesResolved(true);
+    }
+  }, [
+    dashboardCustomSvgLoading,
+    registryCustomSvgLoading,
+    tokenizationCustomSvgLoading,
+    explorerCustomSvgLoading,
+    headerBrandingCustomSvgLoading,
+  ]);
 
   // handle loading and setting the config if it exists
   useEffect(() => {
@@ -38,7 +75,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {!configResolved || customColorsLoading ? (
+      {!configResolved || !resourcesResolved ? (
         <ComponentCenteredSpinner />
       ) : (
         <>

@@ -1,8 +1,8 @@
 import { Dropdown } from 'flowbite-react';
-import { DashboardLogo } from './dynamic-brandable-logos/DashboardLogo';
-import { CadtLogo } from './dynamic-brandable-logos/CadtLogo';
-import { TokenizationLogo } from './dynamic-brandable-logos/TokenizationLogo';
-import { ExplorerLogo } from './dynamic-brandable-logos/ExplorerLogo';
+import { DashboardLogo } from './brandable-logos/DashboardLogo';
+import { CadtLogo } from './brandable-logos/CadtLogo';
+import { TokenizationLogo } from './brandable-logos/TokenizationLogo';
+import { ExplorerLogo } from './brandable-logos/ExplorerLogo';
 import React from 'react';
 import {
   CADT_SRC_LOCATION,
@@ -50,7 +50,7 @@ const AppSelectorDropDown = () => {
     Object.values(childAppInfo).find((childAppInfo) => childAppInfo.link === activeAppUrl) || childAppInfo.cadt;
 
   return (
-    <Dropdown color="gray" theme={dropDownTheme} label={activeApp.logo} size="sm" floatingArrow={true}>
+    <Dropdown color="gray" theme={dropDownTheme} label={activeApp.logo} size="sm">
       <Dropdown.Item onClick={() => setActiveAppUrl(childAppInfo.dashboard.link)}>
         <DashboardLogo />
       </Dropdown.Item>
