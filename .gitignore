@@ -5,6 +5,7 @@ dist-ssr
 *.local
 build
 theme.json
+public/apps
 ExplorerCustom.svg
 RegistryCustom.svg
 TokenizationCustom.svg
