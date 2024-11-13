@@ -6,6 +6,7 @@ dist-ssr
 build
 theme.json
 public/apps
+public/apps/apps.txt
 ExplorerCustom.svg
 RegistryCustom.svg
 TokenizationCustom.svg
