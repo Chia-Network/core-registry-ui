@@ -1,0 +1,1 @@
+static compiled child app source goes here
