@@ -12,7 +12,7 @@ module.exports = {
     url: 'https://github.com/Chia-Network/Climate-Tokenization-Engine-UI/releases/download/{{tag}}/climate-tokenization-engine-ui-web-build.tar.gz',
   },
   climate_dashboard: {
-    tag: '1.0.0',
+    tag: '1.0.1',
     url: 'https://github.com/Chia-Network/core-registry-dashboard-ui/releases/download/{{tag}}/core-registry-dashboard-web-build.tar.gz',
   },
 };
