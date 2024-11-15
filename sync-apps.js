@@ -7,7 +7,7 @@ const appBuilds = require('./app-builds');
 const downloadAndExtract = (key, url, tag) => {
   const finalUrl = url.replace('{{tag}}', tag);
   console.log(`Downloading ${key} from ${finalUrl}`);
-  const appPath = path.join(__dirname, 'apps', key);
+  const appPath = path.join(__dirname, 'public/apps', key);
 
   // Create the folder if it doesn't exist
   fs.mkdirSync(appPath, { recursive: true });
