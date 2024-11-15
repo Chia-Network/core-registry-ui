@@ -13,6 +13,6 @@ module.exports = {
   },
   climate_dashboard: {
     tag: '1.0.0',
-    url: 'https://github.com/Chia-Network/core-registry-dashboard-ui/releases/download/{{tag}}/core-registry-dashboard-ui-web-build.tar.gz',
+    url: 'https://github.com/Chia-Network/core-registry-dashboard-ui/releases/download/{{tag}}/core-registry-dashboard-web-build.tar.gz',
   },
 };
