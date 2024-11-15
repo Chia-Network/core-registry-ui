@@ -3,9 +3,9 @@ node_modules
 dist
 dist-ssr
 *.local
-apps
 build
 theme.json
+public/apps
 ExplorerCustom.svg
 RegistryCustom.svg
 TokenizationCustom.svg

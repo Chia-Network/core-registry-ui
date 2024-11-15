@@ -1,13 +1,13 @@
-const https = require("https");
-const tar = require("tar");
-const fs = require("fs-extra");
-const path = require("path");
-const appBuilds = require("./app-builds");
+const https = require('https');
+const tar = require('tar');
+const fs = require('fs-extra');
+const path = require('path');
+const appBuilds = require('./app-builds');
 
 const downloadAndExtract = (key, url, tag) => {
-  const finalUrl = url.replace("{{tag}}", tag);
+  const finalUrl = url.replace('{{tag}}', tag);
   console.log(`Downloading ${key} from ${finalUrl}`);
-  const appPath = path.join(__dirname, "apps", key);
+  const appPath = path.join(__dirname, 'public/apps', key);
 
   // Create the folder if it doesn't exist
   fs.mkdirSync(appPath, { recursive: true });
@@ -15,7 +15,7 @@ const downloadAndExtract = (key, url, tag) => {
   const downloadFile = (url, redirections = 5) => {
     return new Promise((resolve, reject) => {
       if (redirections < 1) {
-        reject(new Error("Too many redirections"));
+        reject(new Error('Too many redirections'));
       }
 
       const request = https.get(url, (response) => {
@@ -27,15 +27,11 @@ const downloadAndExtract = (key, url, tag) => {
             .then(resolve)
             .catch(reject);
         } else {
-          reject(
-            new Error(
-              `Failed to download file, status code: ${response.statusCode}`
-            )
-          );
+          reject(new Error(`Failed to download file, status code: ${response.statusCode}`));
         }
       });
 
-      request.on("error", reject);
+      request.on('error', reject);
     });
   };
 
@@ -44,19 +40,17 @@ const downloadAndExtract = (key, url, tag) => {
       const extraction = tar.x({ cwd: appPath });
       response.pipe(extraction);
       return new Promise((resolve, reject) => {
-        extraction.on("finish", resolve);
-        extraction.on("error", reject);
+        extraction.on('finish', resolve);
+        extraction.on('error', reject);
       });
     })
     .then(() => {
-      const buildPath = path.join(appPath, "build");
+      const buildPath = path.join(appPath, 'build');
       if (fs.existsSync(buildPath)) {
         return fs
           .copy(buildPath, appPath)
           .then(() => fs.remove(buildPath))
-          .then(() =>
-            console.log(`Moved files from ${buildPath} to ${appPath}`)
-          );
+          .then(() => console.log(`Moved files from ${buildPath} to ${appPath}`));
       } else {
         console.log(`No build directory in ${appPath}`);
       }

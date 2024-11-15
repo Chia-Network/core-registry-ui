@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <defs>
+        <style>
+            .cls-1 {
+            fill: none;
+            stroke: #00d165;
+            stroke-miterlimit: 10;
+            stroke-width: 15px;
+            }
+
+            .cls-2 {
+            fill: #004f4d;
+            }
+
+            .cls-3 {
+            fill: #00344b;
+            }
+
+            .cls-4 {
+            fill: #00d165;
+            }
+
+            .cls-5 {
+            opacity: .8;
+            }
+
+            .cls-5, .cls-6 {
+            fill: #00c285;
+            }
+
+            .cls-6 {
+            opacity: .4;
+            }
+        </style>
+    </defs>
+    <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+            <rect class="cls-3" x="87.09" y="0" width="424.91" height="424.91"/>
+            <polygon class="cls-5" points="424.91 87.09 512 0 512 424.91 424.91 512 424.91 87.09"/>
+            <polygon class="cls-6" points="0 87.09 87.09 0 512 0 424.91 87.09 0 87.09"/>
+            <rect class="cls-2" y="87.09" width="424.91" height="424.91"/>
+            <rect class="cls-4" x="25" y="455" width="370" height="10"/>
+            <rect class="cls-4" x="45" y="245" width="60" height="200"/>
+            <rect class="cls-4" x="135" y="315" width="60" height="130"/>
+            <rect class="cls-4" x="225" y="145" width="60" height="300"/>
+            <rect class="cls-4" x="315" y="245" width="60" height="200"/>
+        </g>
+    </g>
+</svg>

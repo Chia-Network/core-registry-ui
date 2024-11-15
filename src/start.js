@@ -1,8 +1,8 @@
-const { app, BrowserWindow, Menu, MenuItem, shell } = require("electron");
-const openAboutWindow = require("about-window").default;
+const { app, BrowserWindow, Menu, MenuItem, shell } = require('electron');
+const openAboutWindow = require('about-window').default;
 
-const path = require("path");
-const url = require("url");
+const path = require('path');
+const url = require('url');
 
 let mainWindow;
 
@@ -14,26 +14,26 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
-    icon: path.join(__dirname, "/../public/favicon.ico"),
-    title: "Carbon Tokenization Engine",
+    icon: path.join(__dirname, '/../public/favicon.ico'),
+    title: 'Carbon Tokenization Engine',
   });
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
       url.format({
-        pathname: path.join(__dirname, "/../public/index.html"),
-        protocol: "file:",
+        pathname: path.join(__dirname, '/../public/index.html'),
+        protocol: 'file:',
         slashes: true,
-      })
+      }),
   );
 
-  mainWindow.on("closed", () => {
+  mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
-  mainWindow.webContents.on("new-window", (e, url) => {
+  mainWindow.webContents.on('new-window', (e, url) => {
     e.preventDefault();
-    require("electron").shell.openExternal(url);
+    require('electron').shell.openExternal(url);
   });
 
   let defaultMenu = Menu.getApplicationMenu();
@@ -44,41 +44,38 @@ function createWindow() {
 
   newMenu.append(
     new MenuItem({
-      label: "About",
+      label: 'About',
       submenu: [
         {
-          label: "About",
+          label: 'About',
           click() {
             openAboutWindow({
-              icon_path: path.join(
-                __dirname,
-                "/../public/android-chrome-512x512.png"
-              ),
-              copyright: "© Chia Network 2023",
+              icon_path: path.join(__dirname, '/../public/android-chrome-512x512.png'),
+              copyright: '© Chia Network 2023',
             });
           },
         },
       ],
-    })
+    }),
   );
 
   Menu.setApplicationMenu(newMenu);
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
-    return { action: "deny" };
+    return { action: 'deny' };
   });
 }
 
-app.on("ready", createWindow);
+app.on('ready', createWindow);
 
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-app.on("activate", () => {
+app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }

@@ -1,18 +1,18 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  content: ["./node_modules/flowbite/**/*.js", "./src/**/*.{js,jsx,ts,tsx}"],
+  content: ['./src/**/*.{js,jsx,ts,tsx}', 'node_modules/flowbite-react/lib/esm/**/*.js'],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
     },
   },
   plugins: [
-    require("flowbite-typography"),
-    require("flowbite/plugin"),
-    require("@tailwindcss/aspect-ratio"),
-    require("@tailwindcss/forms"),
+    require('flowbite-typography'),
+    require('flowbite/plugin'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
   ],
 };
