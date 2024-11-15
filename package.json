@@ -1,6 +1,6 @@
 {
   "name": "core-registry-ui",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "scripts": {
     "electron": "electron .",
     "electron-start": "node src/start-react",
