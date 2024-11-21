@@ -56,15 +56,13 @@ const downloadAndExtract = async (key, url, tag) => {
     });
 };
 
-const clearAppsDir = async () => {
-  for (const key in appBuilds) {
-    const appPath = path.join(__dirname, 'public/apps', key);
-    await fs.remove(appPath);
-  }
+const deleteAppsDir = async () => {
+  const appsDirPath = path.join(__dirname, 'public/apps');
+  await fs.remove(appsDirPath);
 };
 
 const main = async () => {
-  await clearAppsDir();
+  await deleteAppsDir();
 
   try {
     for (const key in appBuilds) {
@@ -73,7 +71,7 @@ const main = async () => {
     }
   } catch (error) {
     console.error(`Error getting child apps: ${error}`);
-    await clearAppsDir();
+    await deleteAppsDir();
   }
 };
 
