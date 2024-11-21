@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/Chia-Network/core-registry-ui/compare/1.0.1...1.0.2) (2024-11-21)
+
+
+### Bug Fixes
+
+* name of file for dashboard app dependency ([2c201ff](https://github.com/Chia-Network/core-registry-ui/commit/2c201ffee54a805380d2d571e8edbb2ff0d1e190))
+
+
+
 ## [1.0.1](https://github.com/Chia-Network/core-registry-ui/compare/1.0.0...1.0.1) (2024-11-20)
 
 
