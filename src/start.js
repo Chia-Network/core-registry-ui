@@ -8,14 +8,14 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    minWidth: 575,
+    width: 1200,
+    height: 675,
+    minWidth: 675,
     webPreferences: {
       nodeIntegration: true,
     },
     icon: path.join(__dirname, '/../public/favicon.ico'),
-    title: 'Carbon Tokenization Engine',
+    title: 'Core Registry UI',
   });
 
   mainWindow.loadURL(
