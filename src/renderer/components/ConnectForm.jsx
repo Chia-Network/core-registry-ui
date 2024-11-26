@@ -6,7 +6,6 @@ import { TextInput } from 'flowbite-react';
 const ConnectForm = forwardRef(({}, ref) => {
   const configApiHosts = getConfigApiHosts();
   const [, setConnectionSettings] = useManageConnectionSettings();
-  console.log(configApiHosts);
 
   const [formValues, setFormValues] = useState({
     cadtRegistryHost: configApiHosts?.cadtApiHost ?? '',
