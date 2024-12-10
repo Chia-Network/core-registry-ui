@@ -2,7 +2,7 @@ const https = require('https');
 const tar = require('tar');
 const fs = require('fs-extra');
 const path = require('path');
-const appBuilds = require('./app-builds');
+const appBuilds = require('./app-builds.json');
 
 const downloadAndExtract = async (key, url, tag) => {
   const finalUrl = url.replace('{{tag}}', tag);
