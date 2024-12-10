@@ -295,9 +295,33 @@ jobs:
           echo "EXE_FILE=$EXE_FILE" >>$GITHUB_ENV
           echo "WEB_FILE=$WEB_FILE" >>$GITHUB_ENV
 
+      # RC release should not be set as latest
+      - name: Decide if release should be set as latest
+        id: is_latest
+        shell: bash
+        run: |
+          unset IS_LATEST
+
+          echo "Github ref is $GITHUB_REF"
+
+          if [[ "$GITHUB_REF" =~ "-rc" ]]; then
+            echo "release candidate tag matched"
+            IS_LATEST='false'
+            IS_PRERELEASE='true'
+          else
+            echo "main branch release matched"
+            IS_LATEST='true'
+            IS_PRERELEASE='false'
+          fi
+
+          echo "IS_LATEST=${IS_LATEST}" >> "$GITHUB_OUTPUT"
+          echo "IS_PRERELEASE=${IS_PRERELEASE}" >> "$GITHUB_OUTPUT"
+
       - name: Release
         uses: softprops/action-gh-release@v0.1.15
         with:
+          prerelease: ${{steps.is_latest.outputs.IS_PRERELEASE}}
+          make_latest: "${{steps.is_latest.outputs.IS_LATEST}}"
           files: |
             ${{ env.DMG_FILE }}
             ${{ env.DEB_FILE }}
@@ -306,15 +330,18 @@ jobs:
 
       - name: Get repo name
         id: repo-name
+        if: startsWith(github.ref, 'refs/tags/') && !contains( github.ref, '-rc')
         run: |
           echo "REPO_NAME=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 2)" >>$GITHUB_OUTPUT
 
       - name: Get tag name
         id: tag-name
+        if: startsWith(github.ref, 'refs/tags/') && !contains( github.ref, '-rc')
         run: |
           echo "TAGNAME=$(echo $GITHUB_REF | cut -d / -f 3)" >>$GITHUB_OUTPUT
 
       - name: Trigger apt repo update
+        if: startsWith(github.ref, 'refs/tags/') && !contains( github.ref, '-rc')
         uses: Chia-Network/actions/github/glue@main
         with:
           json_data: '{"climate_tokenization_repo":"${{ steps.repo-name.outputs.REPO_NAME }}","application_name":"[\"${{ env.APP_NAME }}\"]","release_version":"${{ steps.tag-name.outputs.TAGNAME }}","add_debian_version":"true","arm64":"available"}'
