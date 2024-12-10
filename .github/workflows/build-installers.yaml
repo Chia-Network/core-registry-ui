@@ -314,9 +314,6 @@ jobs:
         run: |
           echo "TAGNAME=$(echo $GITHUB_REF | cut -d / -f 3)" >>$GITHUB_OUTPUT
 
-      - name: Gets JWT Token from GitHub
-        uses: Chia-Network/actions/github/jwt@main
-
       - name: Trigger apt repo update
         uses: Chia-Network/actions/github/glue@main
         with:
