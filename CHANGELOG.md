@@ -1,3 +1,49 @@
+## [1.0.3](https://github.com/Chia-Network/core-registry-ui/compare/1.0.3-rc3...1.0.3) (2024-12-18)
+
+
+
+## [1.0.2](https://github.com/Chia-Network/core-registry-ui/compare/1.0.1...1.0.2) (2024-11-21)
+
+
+
+## [1.0.1](https://github.com/Chia-Network/core-registry-ui/compare/1.0.0...1.0.1) (2024-11-20)
+
+
+
+# [1.0.0](https://github.com/Chia-Network/core-registry-ui/compare/0.1.1...1.0.0) (2024-11-15)
+
+
+
+## [0.1.1](https://github.com/Chia-Network/core-registry-ui/compare/0.1.0...0.1.1) (2024-08-15)
+
+
+
+# [0.1.0](https://github.com/Chia-Network/core-registry-ui/compare/0.0.15...0.1.0) (2024-07-28)
+
+
+
+## [1.0.3-rc3](https://github.com/Chia-Network/core-registry-ui/compare/1.0.3-rc2...1.0.3-rc3) (2024-12-18)
+
+
+
+## [1.0.3-rc1](https://github.com/Chia-Network/core-registry-ui/compare/1.0.2...1.0.3-rc1) (2024-12-17)
+
+
+### Bug Fixes
+
+* address breaking flowbite-react changes and update flowbite-react ([2a8434a](https://github.com/Chia-Network/core-registry-ui/commit/2a8434a6f8defcea16ad055d781101d6f7a571d0))
+
+
+### Features
+
+* added hostsEditable to config ([60039df](https://github.com/Chia-Network/core-registry-ui/commit/60039dfe36b92dd0afabb8c5af4673878d996940))
+* convert app-builds.js to app-builds.json ([ac33721](https://github.com/Chia-Network/core-registry-ui/commit/ac337212b4ace5cb8c70fb42a3d39f92c4e556d0))
+* sync-apps scripts stops and deletes app builds on failure ([37e519c](https://github.com/Chia-Network/core-registry-ui/commit/37e519c2a71f7a910f28e74c92673ae6e9d51760))
+* sync-apps scripts stops and deletes apps dir on failure ([524ecab](https://github.com/Chia-Network/core-registry-ui/commit/524ecaba3953a80a8a5f597f22a130429e6f139d))
+* update window title and size ([4702872](https://github.com/Chia-Network/core-registry-ui/commit/470287267621665ebf3e7e56a0091666b3ddf1da))
+
+
+
 ## [1.0.2](https://github.com/Chia-Network/core-registry-ui/compare/1.0.1...1.0.2) (2024-11-21)
 
 
