@@ -132,7 +132,7 @@ const ConnectForm = forwardRef(({}, ref) => {
               name="cadtRegistryHost"
               value={formValues.cadtRegistryHost}
               onChange={handleInputChange}
-              disabled={configApiHosts?.cadtApiHost}
+              disabled={configApiHosts?.cadtApiHost && !configApiHosts?.hostsEditable}
               required
               pattern="https?://.+(:\d{1,5})?"
               placeholder="Enter CADT Registry Host URL"
@@ -172,7 +172,7 @@ const ConnectForm = forwardRef(({}, ref) => {
               name="climateTokenizationEngineHost"
               value={formValues.climateTokenizationEngineHost}
               onChange={handleInputChange}
-              disabled={configApiHosts?.tokenizationApiHost}
+              disabled={configApiHosts?.tokenizationApiHost && !configApiHosts?.hostsEditable}
               required
               pattern="https?://.+(:\d{1,5})?"
               placeholder="Enter Climate Tokenization Engine Host URL"
@@ -212,7 +212,7 @@ const ConnectForm = forwardRef(({}, ref) => {
               name="climateExplorerHost"
               value={formValues.climateExplorerHost}
               onChange={handleInputChange}
-              disabled={configApiHosts?.explorerApiHost}
+              disabled={configApiHosts?.explorerApiHost && !configApiHosts?.hostsEditable}
               required
               pattern="https?://.+(:\d{1,5})?"
               placeholder="Enter Climate Explorer Host URL"

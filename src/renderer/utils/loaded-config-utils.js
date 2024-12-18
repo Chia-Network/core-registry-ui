@@ -5,6 +5,7 @@ export const setConfigApiHosts = (loadedConfig) => {
     cadtApiHost: loadedConfig?.cadtApiHost,
     tokenizationApiHost: loadedConfig?.tokenizationApiHost,
     explorerApiHost: loadedConfig?.explorerApiHost,
+    hostsEditable: Boolean(loadedConfig?.hostsEditable),
   };
 
   localStorage.setItem(LOCAL_STORAGE_KEYS.API_HOSTS_FROM_CONFIG, JSON.stringify(configApiHosts));

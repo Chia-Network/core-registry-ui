@@ -2,9 +2,9 @@ const https = require('https');
 const tar = require('tar');
 const fs = require('fs-extra');
 const path = require('path');
-const appBuilds = require('./app-builds');
+const appBuilds = require('./app-builds.json');
 
-const downloadAndExtract = (key, url, tag) => {
+const downloadAndExtract = async (key, url, tag) => {
   const finalUrl = url.replace('{{tag}}', tag);
   console.log(`Downloading ${key} from ${finalUrl}`);
   const appPath = path.join(__dirname, 'public/apps', key);
@@ -18,24 +18,20 @@ const downloadAndExtract = (key, url, tag) => {
         reject(new Error('Too many redirections'));
       }
 
-      const request = https.get(url, (response) => {
+      https.get(url, (response) => {
         if (response.statusCode === 200) {
           resolve(response);
         } else if (response.statusCode === 302 || response.statusCode === 301) {
           console.log(`Redirecting to ${response.headers.location}`);
-          downloadFile(response.headers.location, redirections - 1)
-            .then(resolve)
-            .catch(reject);
+          downloadFile(response.headers.location, redirections - 1).then(resolve);
         } else {
-          reject(new Error(`Failed to download file, status code: ${response.statusCode}`));
+          reject(`Failed to download file, status code: ${response.statusCode}`);
         }
       });
-
-      request.on('error', reject);
     });
   };
 
-  downloadFile(finalUrl)
+  await downloadFile(finalUrl)
     .then((response) => {
       const extraction = tar.x({ cwd: appPath });
       response.pipe(extraction);
@@ -52,15 +48,31 @@ const downloadAndExtract = (key, url, tag) => {
           .then(() => fs.remove(buildPath))
           .then(() => console.log(`Moved files from ${buildPath} to ${appPath}`));
       } else {
-        console.log(`No build directory in ${appPath}`);
+        throw new Error(`No build directory in ${key} build path`);
       }
     })
     .catch((error) => {
-      console.error(`Failed to download and extract ${key}: ${error.message}`);
+      throw new Error(`Failed to download and extract ${key}: ${error}`);
     });
 };
 
-for (const key in appBuilds) {
-  const { tag, url } = appBuilds[key];
-  downloadAndExtract(key, url, tag);
-}
+const deleteAppsDir = async () => {
+  const appsDirPath = path.join(__dirname, 'public/apps');
+  await fs.remove(appsDirPath);
+};
+
+const main = async () => {
+  await deleteAppsDir();
+
+  try {
+    for (const key in appBuilds) {
+      const { tag, url } = appBuilds[key];
+      await downloadAndExtract(key, url, tag);
+    }
+  } catch (error) {
+    console.error(`Error getting child apps: ${error}`);
+    await deleteAppsDir();
+  }
+};
+
+main();
