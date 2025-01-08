@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/forms": "^0.5.10",
     "about-window": "^1.15.2",
     "autoprefixer": "^10.4.20",
     "express": "^4.21.1",
