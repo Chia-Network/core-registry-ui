@@ -30,16 +30,18 @@ const ConnectForm = forwardRef(({}, ref) => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    if (configApiHosts?.cadtApiHost) {
-      data.cadtRegistryHost = configApiHosts.cadtApiHost;
-    }
+    if (!configApiHosts?.hostsEditable) {
+      if (configApiHosts?.cadtApiHost) {
+        data.cadtRegistryHost = configApiHosts.cadtApiHost;
+      }
 
-    if (configApiHosts?.tokenizationApiHost) {
-      data.climateTokenizationEngineHost = configApiHosts.tokenizationApiHost;
-    }
+      if (configApiHosts?.tokenizationApiHost) {
+        data.climateTokenizationEngineHost = configApiHosts.tokenizationApiHost;
+      }
 
-    if (configApiHosts?.explorerApiHost) {
-      data.climateExplorerHost = configApiHosts.explorerApiHost;
+      if (configApiHosts?.explorerApiHost) {
+        data.climateExplorerHost = configApiHosts.explorerApiHost;
+      }
     }
 
     const isValidHost = (host) => /^https?:\/\/.+(:\d{1,5})?$/.test(host);
