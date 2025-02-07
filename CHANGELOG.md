@@ -1,3 +1,36 @@
+## [1.0.4](https://github.com/Chia-Network/core-registry-ui/compare/1.0.3-rc9...1.0.4) (2025-02-07)
+
+
+
+## [1.0.3](https://github.com/Chia-Network/core-registry-ui/compare/1.0.3-rc3...1.0.3) (2024-12-18)
+
+
+
+## [1.0.2](https://github.com/Chia-Network/core-registry-ui/compare/1.0.1...1.0.2) (2024-11-21)
+
+
+
+## [1.0.1](https://github.com/Chia-Network/core-registry-ui/compare/1.0.0...1.0.1) (2024-11-20)
+
+
+
+# [1.0.0](https://github.com/Chia-Network/core-registry-ui/compare/0.1.1...1.0.0) (2024-11-15)
+
+
+
+## [0.1.1](https://github.com/Chia-Network/core-registry-ui/compare/0.1.0...0.1.1) (2024-08-15)
+
+
+
+# [0.1.0](https://github.com/Chia-Network/core-registry-ui/compare/0.0.15...0.1.0) (2024-07-28)
+
+
+### Bug Fixes
+
+* editing config set api hosts ([1077854](https://github.com/Chia-Network/core-registry-ui/commit/1077854cb874e9ef32e657d9c47a7c3ea62d48b8))
+
+
+
 ## [1.0.3](https://github.com/Chia-Network/core-registry-ui/compare/1.0.3-rc3...1.0.3) (2024-12-18)
 
 
