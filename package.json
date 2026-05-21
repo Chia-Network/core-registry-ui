@@ -81,5 +81,8 @@
   "description": "Core Registry Unified User Interface",
   "main": "src/start.js",
   "author": "Chia Network Inc. <hello@chia.net>",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=24.14.1"
+  }
 }
